@@ -17,13 +17,14 @@
             background-repeat: no-repeat;
             min-height: 100vh;
         }
+
+        /* NAVIGATION & GLOW */
         .nav-overlay-bg { 
             background-color: rgba(15, 23, 42, 0.9); 
             border-bottom: 1px solid rgba(100, 116, 139, 0.2);
             backdrop-filter: blur(12px);
         }
 
-        /* Glow Effects */
         .btn-glow-active {
             box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
             transition: all 0.3s ease;
@@ -38,6 +39,7 @@
             color: white;
         }
         
+        /* HEADERS & CARDS */
         .glass-header {
             background-color: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(16px);
@@ -66,7 +68,8 @@
 
         .bounty-card-placeholder {
             background-color: rgba(30, 41, 59, 0.5);
-            border: 2px dashed rgba(59, 130, 246, 0.3);
+            border: 2px dashed rgba(59, 130, 246, 0.5);
+            box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1);
         }
 
         .card-1 { animation-delay: 0.2s; }
@@ -78,7 +81,7 @@
             box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
         }
 
-        /* Fixed Overlapping Footer */
+        /* FOOTER */
         .copyright-container {
             position: fixed;
             bottom: 0;
@@ -87,7 +90,7 @@
             max-height: 45px;
             overflow: hidden;
             transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: rgba(15, 23, 42, 0.9);
+            background-color: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
             border-top: 1px solid rgba(100, 116, 139, 0.2);
             z-index: 100;
@@ -105,24 +108,28 @@
                 <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
             </a>
         </div>
+
         <div class="col-span-2 flex justify-center space-x-6">
             <a href="index.html" class="px-6 py-2 bg-slate-800/50 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Home</a>
             <a href="announcements.html" class="px-6 py-2 bg-slate-800/50 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Announcements</a>
             <a href="bounty-board.html" class="px-6 py-2 bg-blue-600 rounded-lg text-white font-semibold shadow-md transition btn-glow-active text-sm">Bounty Board</a>
+            <a href="shiny-dex.html" class="px-6 py-2 bg-slate-800/50 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Shiny Dex</a>
         </div>
         <div class="col-span-1"></div>
     </header>
 
     <main class="flex-1 p-8 lg:p-12 pb-32">
         <div class="max-w-6xl mx-auto">
+            
             <div class="glass-header mb-16 p-10 rounded-[2rem] text-center max-w-4xl mx-auto animate-[slideUpFade_0.6s_ease-out_forwards]">
                 <h1 class="text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-md">Shiny Bounty Board</h1>
                 <p class="text-blue-200 text-lg font-light max-w-2xl mx-auto leading-relaxed">Hunt these targets and submit them to the bounty issuer on discord to claim bounties!</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mx-auto">
+
                 <div class="bounty-card card-1 p-8 rounded-3xl flex flex-col items-center">
-                    <div class="w-full flex justify-between items-start mb-4">
+                    <div class="w-full flex justify-between items-start mb-6">
                         <div>
                             <span class="text-xs font-bold text-blue-400 tracking-widest uppercase block">Open Bounty</span>
                             <span class="text-[10px] text-blue-200/60 uppercase tracking-tighter">Issuer: <span class="font-bold text-blue-300">ryko</span></span>
@@ -132,14 +139,15 @@
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/honey.png" alt="Honey" class="w-24 h-24 my-6 object-contain filter drop-shadow-xl">
                     <h3 class="text-2xl font-bold text-white mb-2 text-center">Any Honey Tree Shiny</h3>
                     <p class="text-gray-400 text-sm mb-8 text-center font-light leading-relaxed">Capture any shiny Pokémon found via Honey Tree</p>
-                    <div class="reward-badge w-full py-4 rounded-2xl text-center mt-auto">
+                    
+                    <div class="reward-badge w-full py-4 rounded-2xl text-center shadow-inner mt-auto">
                         <span class="text-[10px] text-blue-100 uppercase font-bold tracking-widest opacity-80">Final Reward</span>
                         <div class="text-2xl font-bold text-white tracking-tight">1k RP Voucher</div>
                     </div>
                 </div>
 
                 <div class="bounty-card card-2 p-8 rounded-3xl flex flex-col items-center">
-                    <div class="w-full flex justify-between items-start mb-4">
+                    <div class="w-full flex justify-between items-start mb-6">
                         <div>
                             <span class="text-xs font-bold text-blue-400 tracking-widest uppercase block">Open Bounty</span>
                             <span class="text-[10px] text-blue-200/60 uppercase tracking-tighter">Issuer: <span class="font-bold text-blue-300">ryko</span></span>
@@ -147,32 +155,34 @@
                         <span class="text-xs text-gray-400 font-mono">NO LIMIT</span>
                     </div>
                     <div class="flex justify-center space-x-[-15px] my-6">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/387.png" class="w-20 h-20 filter drop-shadow-lg">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/390.png" class="w-20 h-20 filter drop-shadow-lg">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/393.png" class="w-20 h-20 filter drop-shadow-lg">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/387.png" alt="Turtwig" class="w-20 h-20 filter drop-shadow-lg">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/390.png" alt="Chimchar" class="w-20 h-20 filter drop-shadow-lg">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/393.png" alt="Piplup" class="w-20 h-20 filter drop-shadow-lg">
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2 text-center">Any Sinnoh Starter</h3>
                     <p class="text-gray-400 text-sm mb-8 text-center font-light leading-relaxed">Capture any shiny Sinnoh starter Pokémon</p>
-                    <div class="reward-badge w-full py-4 rounded-2xl text-center mt-auto">
+                    
+                    <div class="reward-badge w-full py-4 rounded-2xl text-center shadow-inner mt-auto">
                         <span class="text-[10px] text-blue-100 uppercase font-bold tracking-widest opacity-80">Final Reward</span>
                         <div class="text-2xl font-bold text-white tracking-tight">1k RP Voucher</div>
                     </div>
                 </div>
 
-                <div class="bounty-card bounty-card-placeholder card-3 p-8 rounded-3xl flex flex-col items-center justify-center">
-                    <div class="text-6xl mb-6 text-blue-400/50 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">?</div>
+                <div class="bounty-card bounty-card-placeholder card-3 p-10 rounded-3xl flex flex-col items-center justify-center text-center">
+                    <div class="text-6xl mb-6 text-blue-400/80 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">?</div>
                     <h3 class="text-2xl font-bold text-white mb-4">More Coming Soon</h3>
-                    <p class="text-gray-300 text-sm text-center leading-relaxed font-light">
-                        To submit new bounty targets, message <span class="text-blue-400 font-bold">ryko</span> ingame or on discord.
+                    <p class="text-gray-200 text-base leading-relaxed">
+                        If you want to submit bounties message <span class="text-blue-400 font-bold">ryko</span> ingame or on discord.
                     </p>
                 </div>
+
             </div>
         </div>
     </main>
 
     <footer class="copyright-container cursor-help">
         <div class="p-4">
-            <div class="text-xs text-gray-500 text-center mb-4 uppercase tracking-tighter">© 2026 Team AïR (Hover for Disclaimer)</div>
+            <div class="text-xs text-gray-500 text-center mb-4 uppercase tracking-tighter opacity-70">© 2026 Team AïR (Hover for Disclaimer)</div>
             <div class="text-[10px] text-gray-400 leading-relaxed text-center max-w-4xl mx-auto opacity-80">
                 Copyright Team AiR. All rights reserved.<br><br>
                 This website and its creators have no connection with or endorsement from PokeMMO or its developers.<br><br>
@@ -180,5 +190,6 @@
             </div>
         </div>
     </footer>
+
 </body>
 </html>
