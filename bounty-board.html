@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bounty Board | Team AïR Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-image: url('image_3.png'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            background-repeat: no-repeat;
+        }
+        .nav-overlay-bg { 
+            background-color: rgba(30, 41, 59, 0.95); 
+            border-bottom: 1px solid rgba(100, 116, 139, 0.3);
+        }
+        
+        .glass-header {
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bounty-card { 
+            background-color: rgba(30, 41, 59, 0.85); 
+            border: 1px solid rgba(100, 116, 139, 0.4);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            animation: slideUpFade 0.6s ease-out forwards;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .bounty-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+
+        /* Enhanced Visibility for Coming Soon Placeholder */
+        .bounty-card-placeholder {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 2px dashed rgba(59, 130, 246, 0.5);
+            backdrop-filter: blur(6px);
+            box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .card-1 { animation-delay: 0.2s; }
+        .card-2 { animation-delay: 0.3s; }
+        .card-3 { animation-delay: 0.4s; }
+
+        .reward-badge {
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
+        }
+
+        .copyright-container {
+            max-height: 45px;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(100, 116, 139, 0.3);
+        }
+        .copyright-container:hover { max-height: 400px; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col min-h-screen">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <div class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-sm">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300">TEAM AÏR TOOLS</span>
+            </div>
+        </div>
+        <div class="col-span-2 flex justify-center space-x-4">
+            <a href="index.html" class="px-5 py-2 bg-slate-700/50 hover:bg-slate-700 rounded-lg text-gray-200 transition text-sm text-center">Home</a>
+            <a href="announcements.html" class="px-5 py-2 bg-slate-700/50 hover:bg-slate-700 rounded-lg text-gray-200 transition text-sm text-center">Announcements</a>
+            <a href="bounty-board.html" class="px-5 py-2 bg-blue-600 rounded-lg text-white font-semibold shadow-md transition text-sm text-center">Bounty Board</a>
+        </div>
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 p-8 lg:p-12">
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="glass-header mb-12 p-8 rounded-3xl text-center max-w-4xl mx-auto animate-[slideUpFade_0.5s_ease-out_forwards]">
+                <h1 class="text-5xl font-extrabold text-white mb-3 tracking-tight">Shiny Bounty Board</h1>
+                <p class="text-blue-300 text-lg font-light">Hunt these targets and submit them to the bounty issuer on discord to claim bounties!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mx-auto">
+
+                <div class="bounty-card card-1 p-6 rounded-2xl flex flex-col items-center">
+                    <div class="w-full flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">Open Bounty</span>
+                        <span class="text-xs text-gray-400">Ends: No Limit</span>
+                    </div>
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/honey.png" alt="Honey Tree" class="w-24 h-24 my-4 object-contain">
+                    <h3 class="text-2xl font-bold text-white mb-1">Any Honey Tree Shiny</h3>
+                    <p class="text-gray-400 text-sm mb-6 text-center font-medium">Capture any shiny Pokémon found via Honey Tree</p>
+                    
+                    <div class="reward-badge w-full py-3 rounded-xl text-center shadow-inner mb-2 mt-auto">
+                        <span class="text-sm text-blue-100 uppercase font-semibold">Reward</span>
+                        <div class="text-xl font-bold text-white">1k RP Voucher</div>
+                    </div>
+                </div>
+
+                <div class="bounty-card card-2 p-6 rounded-2xl flex flex-col items-center">
+                    <div class="w-full flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">Open Bounty</span>
+                        <span class="text-xs text-gray-400">Ends: No Limit</span>
+                    </div>
+                    <div class="flex justify-center space-x-[-10px] my-4">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/387.png" alt="Turtwig" class="w-24 h-24 filter drop-shadow-md">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/390.png" alt="Chimchar" class="w-24 h-24 filter drop-shadow-md">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/393.png" alt="Piplup" class="w-24 h-24 filter drop-shadow-md">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Any Sinnoh Starter</h3>
+                    <p class="text-gray-400 text-sm mb-6 text-center font-medium">Capture any shiny Sinnoh starter Pokémon</p>
+                    
+                    <div class="reward-badge w-full py-3 rounded-xl text-center shadow-inner mb-2 mt-auto">
+                        <span class="text-sm text-blue-100 uppercase font-semibold">Reward</span>
+                        <div class="text-xl font-bold text-white">1k RP Voucher</div>
+                    </div>
+                </div>
+
+                <div class="bounty-card bounty-card-placeholder card-3 p-8 rounded-2xl flex flex-col items-center justify-center border-blue-400/50">
+                    <div class="text-6xl mb-4 text-blue-400/80 drop-shadow-glow">?</div>
+                    <h3 class="text-2xl font-bold text-white mb-4">More Coming Soon</h3>
+                    <p class="text-gray-200 text-base text-center leading-relaxed">
+                        If you want to submit bounties message <span class="text-blue-400 font-bold">ryko</span> ingame or on discord.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="copyright-container w-full cursor-help mt-auto sticky bottom-0 z-50">
+        <div class="p-4">
+            <div class="text-xs text-gray-500 text-center mb-4">© 2026 Team AïR (Hover for Disclaimer)</div>
+            <div class="text-[10px] text-gray-400 leading-relaxed text-center max-w-4xl mx-auto">
+                Copyright Team AiR. All rights reserved.<br><br>
+                This website and its creators have no connection with or endorsement from PokeMMO or its developers.<br><br>
+                All Pokémon characters, and images are the intellectual property of Pokémon USA, Inc. and Nintendo. This website and its creators are not affiliated with or endorsed by Nintendo LLC, Creatures, GameFreak Inc., The Pokémon Company, Pokémon USA, Inc. or The Pokémon Company International.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
