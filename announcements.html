@@ -50,7 +50,8 @@
             animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        .post-1 { animation-delay: 0.3s; }
+        .post-0 { animation-delay: 0.2s; }
+        .post-1 { animation-delay: 0.4s; }
 
         .copyright-container {
             position: fixed;
@@ -93,7 +94,27 @@
             <p class="text-blue-300 mt-3 text-lg font-light">Stay updated with Team AïR news and events</p>
         </div>
 
-        <div class="max-w-4xl w-full space-y-6">
+        <div class="max-w-4xl w-full space-y-8">
+            
+            <div class="announcement-card post-0 p-8 rounded-3xl shadow-2xl border-blue-500/30">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Quacklett Celebration Event!</h2>
+                    <span class="text-xs font-mono bg-blue-900/50 px-4 py-1.5 rounded-full text-blue-300 border border-blue-500/30">APR 21, 2026</span>
+                </div>
+                <p class="text-gray-200 text-lg leading-relaxed font-light mb-6">
+                    QueenieJeannie is hosting her Quacklett celebration event with a BIG Hide-and-Seek! Lots of prizes so make sure you participate!
+                </p>
+                <div class="bg-blue-900/30 border border-blue-500/20 rounded-2xl p-6 mb-6 space-y-3">
+                    <p class="text-blue-100 flex items-center"><span class="text-xl mr-3">📅</span> <span class="font-bold mr-2">Date:</span> Friday, 24th of April</p>
+                    <p class="text-blue-100 flex items-center"><span class="text-xl mr-3">⏰</span> <span class="font-bold mr-2">Time:</span> 6:00 PM (18:00) UTC</p>
+                    <p class="text-blue-100 flex items-center"><span class="text-xl mr-3">🔗</span> <span class="font-bold mr-2">Link:</span> <a href="https://tinyurl.com/QJQuack" target="_blank" class="text-blue-400 underline hover:text-blue-300 transition">tinyurl.com/QJQuack</a></p>
+                </div>
+                <div class="h-px bg-gradient-to-r from-blue-500/30 via-transparent to-transparent w-full my-6"></div>
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="text-blue-400 font-bold uppercase tracking-wider">Posted by:</span> <span class="text-gray-400">QueenieJeannie</span>
+                </div>
+            </div>
+
             <div class="announcement-card post-1 p-8 rounded-3xl shadow-2xl">
                 <div class="flex justify-between items-start mb-6">
                     <h2 class="text-3xl font-bold text-white tracking-tight">Welcome to the New Portal!</h2>
@@ -107,6 +128,7 @@
                     <span class="text-blue-400 font-bold uppercase tracking-wider">Posted by:</span> <span class="text-gray-400">Admin</span>
                 </div>
             </div>
+
         </div>
     </main>
 
