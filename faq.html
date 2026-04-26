@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Team AïR Tools</title>
+    
+    <link rel="icon" type="image/png" href="air_ball.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a;
+            background-image: url('image_3.png'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            min-height: 100vh;
+        }
+
+        .nav-overlay-bg { 
+            background-color: rgba(15, 23, 42, 0.9); 
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-link-hover:hover {
+            text-shadow: 0 0 8px rgba(147, 197, 253, 0.6);
+            color: white;
+        }
+
+        .glass-panel {
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade {
+            animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .copyright-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-height: 45px;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            z-index: 100;
+        }
+        .copyright-container:hover { max-height: 400px; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <a href="index.html" class="flex items-center space-x-3 transition-all hover:opacity-80 group">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] group-hover:scale-105 transition-transform">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
+            </a>
+        </div>
+        <div class="col-span-2 flex justify-center space-x-6">
+            <a href="index.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Home</a>
+            <a href="announcements.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Announcements</a>
+            <a href="bounty-board.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Bounty Board</a>
+            <a href="shiny-dex.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Shiny Dex</a>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center justify-center p-8 pb-32">
+        <div class="glass-panel p-16 rounded-[3rem] max-w-2xl w-full text-center animate-fade">
+            <div class="text-6xl mb-6 opacity-50">📋</div>
+            <h1 class="text-4xl font-black text-white mb-4 uppercase tracking-tighter">Bounty Board FAQ</h1>
+            <div class="h-1 w-20 bg-blue-500 mx-auto mb-8 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.8)]"></div>
+            <h2 class="text-2xl font-bold text-blue-300 mb-4 italic">Coming Soon</h2>
+            <p class="text-gray-400 text-lg leading-relaxed">
+                Rules, submission guidelines, and frequently asked questions are being finalized. Check back later for more information!
+            </p>
+            <a href="bounty-board.html" class="mt-10 inline-block px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-2xl text-white transition font-bold uppercase tracking-widest text-xs">
+                ← Return to Bounties
+            </a>
+        </div>
+    </main>
+
+    <footer class="copyright-container">
+        <div class="p-4 text-center">
+            <div class="text-xs text-gray-500 mb-2 uppercase tracking-tighter">© 2026 Team AïR Tools</div>
+            <div class="text-[10px] text-gray-400 max-w-4xl mx-auto opacity-80">
+                Copyright Team AiR. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
