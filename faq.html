@@ -112,6 +112,19 @@
             z-index: 100;
         }
         .copyright-container:hover { max-height: 400px; }
+
+        /* BACK BUTTON STYLE */
+        .back-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="text-gray-100 flex flex-col">
@@ -124,22 +137,18 @@
                 <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
             </a>
         </div>
-        <div class="col-span-2 flex justify-center space-x-6">
-            <a href="index.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Home</a>
-            <a href="announcements.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Announcements</a>
-            <a href="bounty-board.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Bounty Board</a>
-            <a href="shiny-dex.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Shiny Dex</a>
-        </div>
-    </header>
 
-    <main class="flex-1 flex flex-col items-center pt-6 lg:pt-8 px-8 lg:px-12 pb-48">
-        
-        <div class="mb-6 animate-fade">
-            <a href="bounty-board.html" class="px-8 py-2 bg-slate-800 hover:bg-blue-600 rounded-full text-white font-bold transition uppercase tracking-widest text-[10px] border border-white/10 flex items-center group shadow-2xl">
-                <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span> Return to Bounties
+        <div class="col-span-2 flex justify-center">
+            <a href="bounty-board.html" class="back-btn px-8 py-2 rounded-full text-blue-300 font-bold text-sm flex items-center uppercase tracking-widest">
+                <span class="mr-2">←</span> Return to Bounties
             </a>
         </div>
 
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center pt-12 lg:pt-16 px-8 lg:px-12 pb-48">
+        
         <div class="text-center mb-8 animate-fade" style="animation-delay: 0.1s">
             <h1 class="text-5xl lg:text-6xl font-black text-white tracking-tighter uppercase drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">Bounty System Guide</h1>
         </div>
