@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ | Team AïR Tools</title>
+    <title>Bounty System FAQ | Team AïR Tools</title>
     
     <link rel="icon" type="image/png" href="air_ball.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
+        /* PREVENTS LAYOUT JUMP WHEN SCROLLBAR APPEARS */
+        html { 
+            scrollbar-gutter: stable; 
+            scroll-behavior: smooth; 
+        }
+
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #0f172a;
@@ -31,33 +37,78 @@
             color: white;
         }
 
-        .glass-panel {
-            background-color: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
         @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .animate-fade {
-            animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation: slideUpFade 0.6s ease-out forwards;
+        }
+
+        /* --- INFOGRAPHIC STYLING --- */
+        .callout-box {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            padding: 1rem;
+            border-radius: 1.25rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .sample-bounty-card {
+            width: 100%;
+            max-width: 280px;
+            background-color: rgba(30, 41, 59, 0.95);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .reward-badge-sample {
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
+            width: 100%;
+            padding: 0.75rem 0;
+            border-radius: 0.75rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        /* --- ACCORDION STYLING --- */
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary { 
+            color: #60a5fa; 
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2); 
+            margin-bottom: 1.25rem; 
+            padding-bottom: 0.75rem; 
+        }
+        
+        .rule-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            backdrop-filter: blur(12px);
+        }
+
+        .accordion-item {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            height: fit-content;
+        }
+        .accordion-item:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            background-color: rgba(30, 41, 59, 0.8);
         }
 
         .copyright-container {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            max-height: 45px;
-            overflow: hidden;
-            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            bottom: 0; left: 0; width: 100%; max-height: 45px;
+            overflow: hidden; transition: max-height 0.6s;
             background-color: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(20px); border-top: 1px solid rgba(100, 116, 139, 0.2);
             z-index: 100;
         }
         .copyright-container:hover { max-height: 400px; }
@@ -81,29 +132,163 @@
         </div>
     </header>
 
-    <main class="flex-1 flex flex-col items-center justify-center p-8 pb-32">
-        <div class="glass-panel p-16 rounded-[3rem] max-w-2xl w-full text-center animate-fade">
-            <div class="text-6xl mb-6 opacity-50">📋</div>
-            <h1 class="text-4xl font-black text-white mb-4 uppercase tracking-tighter">Bounty Board FAQ</h1>
-            <div class="h-1 w-20 bg-blue-500 mx-auto mb-8 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.8)]"></div>
-            <h2 class="text-2xl font-bold text-blue-300 mb-4 italic">Coming Soon</h2>
-            <p class="text-gray-400 text-lg leading-relaxed">
-                Rules, submission guidelines, and frequently asked questions are being finalized. Check back later for more information!
-            </p>
-            <a href="bounty-board.html" class="mt-10 inline-block px-8 py-3 bg-slate-800 hover:bg-slate-700 rounded-2xl text-white transition font-bold uppercase tracking-widest text-xs">
-                ← Return to Bounties
+    <main class="flex-1 flex flex-col items-center pt-6 lg:pt-8 px-8 lg:px-12 pb-48">
+        
+        <div class="mb-6 animate-fade">
+            <a href="bounty-board.html" class="px-8 py-2 bg-slate-800 hover:bg-blue-600 rounded-full text-white font-bold transition uppercase tracking-widest text-[10px] border border-white/10 flex items-center group shadow-2xl">
+                <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span> Return to Bounties
             </a>
         </div>
+
+        <div class="text-center mb-8 animate-fade" style="animation-delay: 0.1s">
+            <h1 class="text-5xl lg:text-6xl font-black text-white tracking-tighter uppercase drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">Bounty System Guide</h1>
+        </div>
+
+        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center animate-fade" style="animation-delay: 0.2s">
+            <div class="lg:col-span-4 space-y-6">
+                <div class="callout-box">
+                    <div class="text-sm font-black text-blue-400 uppercase tracking-widest mb-1 flex items-center">
+                        <span class="w-3 h-3 bg-blue-500 rounded-full mr-2 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span> Bounty Status
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">Indicates if the hunt is active. Only <strong>Open</strong> bounties can be claimed for prizes.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="text-sm font-black text-blue-400 uppercase tracking-widest mb-1 flex items-center">✨ The Target</div>
+                    <p class="text-gray-300 text-sm leading-relaxed">The image and title define what species you need. Sub-text clarifies specific constraints.</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 flex justify-center">
+                <div class="sample-bounty-card">
+                    <div class="w-full flex justify-between mb-4">
+                        <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest bg-blue-950/40 px-3 py-1 rounded-full border border-blue-600/30 shadow-inner">Open</span>
+                        <span class="text-[10px] text-blue-200/60 uppercase">Issuer: <span class="font-bold text-blue-300 underline">PlayerName</span></span>
+                    </div>
+                    <div class="my-4 drop-shadow-[0_0_15px_rgba(59,130,246,0.4)]">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ultra-ball.png" class="w-20 h-20">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1 text-center uppercase tracking-tight">Example Target</h3>
+                    <p class="text-gray-400 text-xs text-center mb-4 italic leading-tight px-4">"Any shiny Pokémon meeting the criteria"</p>
+                    <div class="reward-badge-sample">
+                        <div class="text-xl font-black text-white tracking-widest">1,000,000 Yen</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 space-y-6">
+                <div class="callout-box">
+                    <div class="text-sm font-black text-blue-400 uppercase tracking-widest mb-1 flex items-center">👤 The Issuer</div>
+                    <p class="text-gray-300 text-sm leading-relaxed">The member paying the prize. Whisper them in-game or tag them in Discord to claim.</p>
+                </div>
+                <div class="callout-box">
+                    <div class="text-sm font-black text-blue-400 uppercase tracking-widest mb-1 flex items-center">💰 The Prize</div>
+                    <p class="text-gray-300 text-sm leading-relaxed">The guaranteed reward for a successful capture. (Yen or RP Vouchers).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-3xl w-full mt-12 animate-fade px-4 mx-auto" style="animation-delay: 0.4s">
+            <div class="rule-card p-6 rounded-3xl relative mb-10 border-red-500/30">
+                <div class="absolute -top-6 -left-6 text-6xl text-red-500 drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]">⚠</div>
+                <h2 class="text-2xl font-black text-red-100 uppercase tracking-tighter mb-4 flex items-center">
+                    <span class="w-10 h-10 border-2 border-red-500/50 rounded-full flex items-center justify-center mr-4 text-red-400 text-sm">01</span> The Golden Rule
+                </h2>
+                <div class="space-y-4">
+                    <p class="text-red-100 text-sm leading-relaxed font-light">
+                        To preserve the competitive spirit of Team AïR, the Pokémon <strong>MUST</strong> be your own Original Trainer (OT). Bounties reward active effort, not wealth.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-red-100 text-[11px] font-bold bg-red-950/20 p-4 rounded-2xl border border-red-500/10">
+                        <div class="flex items-center"><span class="text-red-500 mr-2 text-xs">▶</span> OT must match your character.</div>
+                        <div class="flex items-center"><span class="text-red-500 mr-2 text-xs">▶</span> Date must be AFTER bounty post.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl w-full animate-fade px-4 mx-auto" style="animation-delay: 0.5s">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <details class="accordion-item rounded-2xl overflow-hidden group">
+                    <summary class="p-6 font-bold text-base uppercase tracking-widest cursor-pointer list-none flex justify-between items-center transition-all group-hover:text-blue-300">
+                        Core Mechanics
+                        <span class="text-blue-500 text-2xl transition-transform group-open:rotate-45">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-base leading-relaxed">
+                        <ul class="space-y-4 list-disc list-inside px-2">
+                            <li><strong>Eligibility:</strong> Exclusive to active Team AïR members.</li>
+                            <li><strong>Submission:</strong> Link the Pokémon to the Issuer via Discord or in-game Mail/Whisper.</li>
+                            <li><strong>Duration:</strong> Bounties stay open until a verified claim is made.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="accordion-item rounded-2xl overflow-hidden group">
+                    <summary class="p-6 font-bold text-base uppercase tracking-widest cursor-pointer list-none flex justify-between items-center transition-all group-hover:text-blue-300">
+                        Terminology Guide
+                        <span class="text-blue-500 text-2xl transition-transform group-open:rotate-45">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-base leading-relaxed">
+                        <ul class="space-y-5">
+                            <li><strong class="text-blue-300">Secret Shiny:</strong> Rare 1/16th star particle effect on encounter.</li>
+                            <li><strong class="text-blue-300">Dex Gap:</strong> A species currently missing from our Team Master Shiny Dex.</li>
+                            <li><strong class="text-blue-300">Lure Rarity:</strong> Shinies found via Lure-specific spawns or rates.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="accordion-item rounded-2xl overflow-hidden group">
+                    <summary class="p-6 font-bold text-base uppercase tracking-widest cursor-pointer list-none flex justify-between items-center transition-all group-hover:text-blue-300">
+                        First Come, First Served
+                        <span class="text-blue-500 text-2xl transition-transform group-open:rotate-45">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-base leading-relaxed">
+                        Prizes go to the first person who presents a valid catch to the Issuer. If two people catch the same target, the timestamp of the first message to the Issuer determines the winner.
+                    </div>
+                </details>
+
+                <details class="accordion-item rounded-2xl overflow-hidden group">
+                    <summary class="p-6 font-bold text-base uppercase tracking-widest cursor-pointer list-none flex justify-between items-center transition-all group-hover:text-blue-300">
+                        Submitting Multiple Claims
+                        <span class="text-blue-500 text-2xl transition-transform group-open:rotate-45">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-gray-400 text-base leading-relaxed">
+                        <p class="font-bold text-blue-300 mb-3 underline decoration-blue-500/50">One catch CAN claim multiple bounties!</p>
+                        If your catch fits multiple open categories (e.g., a "Blue Shiny" that is also a "Unova Dex Gap"), you are eligible for both rewards from their respective Issuers.
+                    </div>
+                </details>
+
+            </div>
+        </div>
+
     </main>
 
     <footer class="copyright-container">
         <div class="p-4 text-center">
-            <div class="text-xs text-gray-500 mb-2 uppercase tracking-tighter">© 2026 Team AïR Tools</div>
-            <div class="text-[10px] text-gray-400 max-w-4xl mx-auto opacity-80">
-                Copyright Team AiR. All rights reserved.
+            <div class="text-xs text-gray-500 mb-2 uppercase tracking-tighter opacity-70">© 2026 Team AïR Tools</div>
+            <div class="text-[10px] text-gray-400 max-w-4xl mx-auto opacity-80 leading-relaxed">
+                Copyright Team AiR. All rights reserved. This website is not affiliated with PokeMMO or Nintendo.
             </div>
         </div>
     </footer>
+
+    <script>
+        document.querySelectorAll('details').forEach((detail) => {
+            detail.addEventListener('toggle', (e) => {
+                if (detail.open) {
+                    setTimeout(() => {
+                        const headerOffset = 120;
+                        const elementPosition = detail.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }, 50);
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
