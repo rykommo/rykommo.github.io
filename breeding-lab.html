@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiny Breed Planner | Team AïR Tools</title>
+    
+    <link rel="icon" type="image/png" href="air_ball.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        html { 
+            scrollbar-gutter: stable; 
+            scroll-behavior: smooth; 
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a;
+            background-image: url('image_3.png'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            min-height: 100vh;
+        }
+
+        .nav-overlay-bg { 
+            background-color: rgba(15, 23, 42, 0.9); 
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(12px);
+        }
+
+        /* RESTORED GLOW CSS */
+        .btn-glow-active {
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-glow-active:hover {
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.7);
+            transform: translateY(-1px);
+        }
+
+        .nav-link-hover:hover {
+            text-shadow: 0 0 8px rgba(147, 197, 253, 0.6);
+            color: white;
+        }
+
+        .planner-header-box {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 9999px;
+            padding: 1rem 3rem;
+            display: inline-block;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        .glass-panel { 
+            background-color: rgba(30, 41, 59, 0.6); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(20px); 
+        }
+
+        .step-card { 
+            background: rgba(15, 23, 42, 0.85); 
+            border: 1px solid rgba(59, 130, 246, 0.2); 
+            position: relative; 
+        }
+
+        .step-number { 
+            position: absolute; 
+            top: -12px; 
+            left: 24px; 
+            background: #3b82f6; 
+            color: white; 
+            padding: 2px 14px; 
+            border-radius: 20px; 
+            font-weight: 900; 
+            font-size: 0.7rem; 
+            z-index: 10; 
+        }
+
+        .iv-box { 
+            background: rgba(15, 23, 42, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            padding: 8px; 
+            border-radius: 10px; 
+            text-align: center; 
+        }
+
+        .iv-box label { 
+            display: block; 
+            font-size: 0.5rem; 
+            color: #64748b; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            margin-bottom: 2px; 
+        }
+        
+        .iv-field { 
+            background: transparent; 
+            border-bottom: 2px solid rgba(59, 130, 246, 0.2); 
+            text-align: center; 
+            width: 100%; 
+            outline: none; 
+            font-weight: 900; 
+            color: #fff; 
+            font-size: 1rem; 
+        }
+
+        .iv-field:focus { border-color: #3b82f6; color: #60a5fa; }
+
+        .name-field { 
+            background: rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            width: 100%; 
+            outline: none; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            color: #93c5fd; 
+        }
+
+        .gender-btn { 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            font-size: 0.6rem; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            border: 1px solid transparent; 
+        }
+
+        .gender-male { background: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+        .gender-male.active { background: #2563eb; color: white; }
+        .gender-female { background: rgba(236, 72, 153, 0.1); color: #f472b6; }
+        .gender-female.active { background: #db2777; color: white; }
+
+        .flow-line { 
+            width: 2px; 
+            height: 40px; 
+            background: linear-gradient(to bottom, #3b82f6, transparent); 
+            margin: 0 auto; 
+        }
+        
+        .result-text { font-weight: 900; font-size: 1rem; transition: color 0.3s ease; }
+
+        .copyright-container { 
+            position: fixed; bottom: 0; left: 0; width: 100%; max-height: 45px; 
+            overflow: hidden; transition: max-height 0.6s; 
+            background-color: rgba(15, 23, 42, 0.95); 
+            border-top: 1px solid rgba(100, 116, 139, 0.2); 
+            z-index: 100; 
+        }
+        .copyright-container:hover { max-height: 400px; }
+        
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { animation: slideUpFade 0.6s ease-out forwards; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <a href="index.html" class="flex items-center space-x-3 transition-all hover:opacity-80 group">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] group-hover:scale-105 transition-transform">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
+            </a>
+        </div>
+        <div class="col-span-2 flex justify-center space-x-6">
+            <a href="index.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Home</a>
+            <a href="announcements.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Announcements</a>
+            <a href="bounty-board.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Bounty Board</a>
+            <a href="tools.html" class="px-5 py-2 bg-blue-600 rounded-lg text-white font-semibold shadow-md transition btn-glow-active text-sm">Tools</a>
+            <a href="shiny-dex.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Shiny Dex</a>
+        </div>
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 p-8 lg:p-12 max-w-[1200px] mx-auto w-full pb-48">
+        
+        <div class="text-center mb-16 animate-fade">
+            <div class="planner-header-box">
+                <h1 class="text-4xl lg:text-6xl font-black text-white tracking-tighter uppercase drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">Shiny Breed Planner</h1>
+            </div>
+        </div>
+
+        <div id="flow-container" class="animate-fade" style="animation-delay: 0.2s"></div>
+
+        <div class="flex flex-col items-center mt-6 animate-fade" style="animation-delay: 0.2s">
+            <div class="flow-line"></div>
+            <button onclick="addStep()" class="mt-4 bg-blue-600 hover:bg-blue-500 text-white px-12 py-4 rounded-full font-black uppercase tracking-widest text-xs shadow-2xl transition-all active:scale-95 border border-white/10">
+                + Add Breed Step
+            </button>
+        </div>
+            
+    </main>
+
+    <footer class="copyright-container">
+        <div class="p-4 text-center">
+            <div class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">© 2026 Team AïR Tools | Lineage Protocol v5.8</div>
+        </div>
+    </footer>
+
+    <script>
+        let steps = [];
+
+        function addStep() {
+            steps.push({
+                parentA: { source: 'base', ot: 'own', ivs: [31, 31, 31, 31, 31, 31], name: 'Breeder A', gender: 'male' },
+                parentB: { source: 'base', ot: 'own', ivs: [31, 31, 31, 31, 31, 31], name: 'Breeder B', gender: 'female' },
+                braceA: 'none',
+                braceB: 'none'
+            });
+            renderFlow();
+        }
+
+        function updateAllResults() {
+            steps.forEach((_, idx) => {
+                const result = calculateStepResult(idx);
+                const resName = document.getElementById(`step-${idx}-res-name`);
+                if (resName) resName.innerText = result.name || "Species Unknown";
+                const resOT = document.getElementById(`step-${idx}-ot`);
+                if (resOT) {
+                    resOT.innerText = `${result.ot} OT`;
+                    resOT.className = `text-[10px] font-black uppercase ${result.ot === 'own' ? 'text-green-400' : 'text-amber-400'}`;
+                }
+                result.ivs.forEach((iv, i) => {
+                    const span = document.getElementById(`step-${idx}-res-${i}`);
+                    if (span) {
+                        span.innerText = iv.min === iv.max ? iv.min : `${iv.min}-${iv.max}`;
+                        span.classList.remove('text-green-400', 'text-red-500', 'text-blue-400', 'drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]', 'drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]');
+                        if (iv.min === 31 && iv.max === 31) {
+                            span.classList.add('text-green-400', 'drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]');
+                        } else if (iv.min === 0 && iv.max === 0) {
+                            span.classList.add('text-red-500', 'drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]');
+                        } else {
+                            span.classList.add('text-blue-400');
+                        }
+                    }
+                });
+                updateParentVisuals(idx);
+            });
+        }
+
+        function calculateStepResult(idx) {
+            const step = steps[idx];
+            const pA = getParentStandardizedData(step.parentA);
+            const pB = getParentStandardizedData(step.parentB);
+            let resName = (step.parentA.gender === 'female') ? step.parentA.name : step.parentB.name;
+            let resOT = (pA.ot === 'own' || pB.ot === 'own') ? 'own' : 'unknown';
+            let resIVs = [];
+            for (let i = 0; i < 6; i++) {
+                const bA = step.braceA == i; const bB = step.braceB == i;
+                let min, max;
+                if (bA && bB) {
+                    min = Math.floor((pA.ivs[i].min + pB.ivs[i].min) / 2);
+                    max = Math.floor((pA.ivs[i].max + pB.ivs[i].max) / 2);
+                } else if (bA) {
+                    min = pA.ivs[i].min; max = pA.ivs[i].max;
+                } else if (bB) {
+                    min = pB.ivs[i].min; max = pB.ivs[i].max;
+                } else {
+                    const avgMin = Math.floor((pA.ivs[i].min + pB.ivs[i].min) / 2);
+                    const avgMax = Math.floor((pA.ivs[i].max + pB.ivs[i].max) / 2);
+                    const highMax = Math.max(pA.ivs[i].max, pB.ivs[i].max);
+                    const lowMin = Math.min(pA.ivs[i].min, pB.ivs[i].min);
+                    const isOwnUnknown = (pA.ot === 'own' && (pB.ot === 'own' || pB.ot === 'unknown')) || (pB.ot === 'own' && (pA.ot === 'own' || pA.ot === 'unknown'));
+                    const isOwnRandom = (pA.ot === 'own' && pB.ot === 'random') || (pB.ot === 'own' && pA.ot === 'random');
+                    if (isOwnUnknown) { min = lowMin; max = highMax; }
+                    else if (isOwnRandom) { min = avgMin; max = highMax; }
+                    else { min = avgMin; max = avgMax; }
+                }
+                resIVs.push({ min, max });
+            }
+            return { name: resName, ot: resOT, ivs: resIVs };
+        }
+
+        function getParentStandardizedData(p) {
+            if (p.source === 'base') return { ot: p.ot, ivs: p.ivs.map(v => ({ min: v, max: v })) };
+            return calculateStepResult(parseInt(p.source));
+        }
+
+        function renderFlow() {
+            const container = document.getElementById('flow-container');
+            container.innerHTML = '';
+            steps.forEach((step, idx) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.innerHTML = `
+                    <div class="flex flex-col items-center">
+                        ${idx > 0 ? '<div class="flow-line"></div>' : ''}
+                        <div class="step-card w-full p-6 lg:p-8 rounded-[2rem] shadow-2xl glass-panel">
+                            <div class="step-number">STEP ${idx + 1}</div>
+                            <div class="grid grid-cols-1 lg:grid-cols-11 gap-6 items-center">
+                                <div class="lg:col-span-3 space-y-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <select onchange="updateSource(${idx}, 'A', this.value)" class="bg-transparent text-[10px] font-bold text-blue-400 outline-none">
+                                            <option value="base">NEW BASE</option>
+                                            ${steps.slice(0, idx).map((_, i) => `<option value="${i}" ${step.parentA.source == i ? 'selected':''}>RESULT STEP ${i+1}</option>`).join('')}
+                                        </select>
+                                        <div class="flex space-x-1">
+                                            <div onclick="updateGender(${idx}, 'A', 'male')" class="gender-btn gender-male ${step.parentA.gender=='male'?'active':''}">♂</div>
+                                            <div onclick="updateGender(${idx}, 'A', 'female')" class="gender-btn gender-female ${step.parentA.gender=='female'?'active':''}">♀</div>
+                                        </div>
+                                    </div>
+                                    <div id="step-${idx}-parentA-inputs" class="space-y-3">
+                                        <input type="text" placeholder="Species" value="${step.parentA.name}" oninput="updateName(${idx}, 'A', this.value)" class="name-field">
+                                        <select onchange="updateOT(${idx}, 'A', this.value)" class="w-full bg-slate-950 text-[10px] p-2 rounded border border-white/5">
+                                            <option value="own" ${step.parentA.ot=='own'?'selected':''}>Own OT</option>
+                                            <option value="unknown" ${step.parentA.ot=='unknown'?'selected':''}>Unknown OT</option>
+                                            <option value="random" ${step.parentA.ot=='random'?'selected':''}>Random OT</option>
+                                        </select>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            ${step.parentA.ivs.map((val, i) => `<div class="iv-box"><label>${['HP','ATK','DEF','SPATK','SPDEF','SPE'][i]}</label><input type="number" value="${val}" oninput="updateIV(${idx}, 'A', ${i}, this.value)" class="iv-field"></div>`).join('')}
+                                        </div>
+                                    </div>
+                                    <div id="step-${idx}-parentA-display" class="hidden"></div>
+                                    <select onchange="updateBrace(${idx}, 'A', this.value)" class="w-full bg-slate-950 text-[10px] p-2 rounded border border-blue-500/20">
+                                        <option value="none">No Brace</option>
+                                        ${['HP','ATK','DEF','SPATK','SPDEF','SPE'].map((l, i) => `<option value="${i}" ${step.braceA == i ? 'selected':''}>Hold: ${l}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div class="lg:col-span-1 text-center opacity-20 text-2xl">+</div>
+                                <div class="lg:col-span-3 space-y-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <select onchange="updateSource(${idx}, 'B', this.value)" class="bg-transparent text-[10px] font-bold text-blue-400 outline-none">
+                                            <option value="base">NEW BASE</option>
+                                            ${steps.slice(0, idx).map((_, i) => `<option value="${i}" ${step.parentB.source == i ? 'selected':''}>RESULT STEP ${i+1}</option>`).join('')}
+                                        </select>
+                                        <div class="flex space-x-1">
+                                            <div onclick="updateGender(${idx}, 'B', 'male')" class="gender-btn gender-male ${step.parentB.gender=='male'?'active':''}">♂</div>
+                                            <div onclick="updateGender(${idx}, 'B', 'female')" class="gender-btn gender-female ${step.parentB.gender=='female'?'active':''}">♀</div>
+                                        </div>
+                                    </div>
+                                    <div id="step-${idx}-parentB-inputs" class="space-y-3">
+                                        <input type="text" placeholder="Species" value="${step.parentB.name}" oninput="updateName(${idx}, 'B', this.value)" class="name-field">
+                                        <select onchange="updateOT(${idx}, 'B', this.value)" class="w-full bg-slate-950 text-[10px] p-2 rounded border border-white/5">
+                                            <option value="own" ${step.parentB.ot=='own'?'selected':''}>Own OT</option>
+                                            <option value="unknown" ${step.parentB.ot=='unknown'?'selected':''}>Unknown OT</option>
+                                            <option value="random" ${step.parentB.ot=='random'?'selected':''}>Random OT</option>
+                                        </select>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            ${step.parentB.ivs.map((val, i) => `<div class="iv-box"><label>${['HP','ATK','DEF','SPATK','SPDEF','SPE'][i]}</label><input type="number" value="${val}" oninput="updateIV(${idx}, 'B', ${i}, this.value)" class="iv-field"></div>`).join('')}
+                                        </div>
+                                    </div>
+                                    <div id="step-${idx}-parentB-display" class="hidden"></div>
+                                    <select onchange="updateBrace(${idx}, 'B', this.value)" class="w-full bg-slate-950 text-[10px] p-2 rounded border border-blue-500/20">
+                                        <option value="none">No Brace</option>
+                                        ${['HP','ATK','DEF','SPATK','SPDEF','SPE'].map((l, i) => `<option value="${i}" ${step.braceB == i ? 'selected':''}>Hold: ${l}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div class="lg:col-span-1 text-center opacity-20 text-2xl">=</div>
+                                <div class="lg:col-span-3 bg-slate-950/80 p-6 rounded-3xl border border-blue-500/30 text-center">
+                                    <p id="step-${idx}-res-name" class="text-sm font-black text-blue-400 mb-1 uppercase tracking-tight">-</p>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        ${[0,1,2,3,4,5].map(i => `
+                                            <div class="iv-box border-blue-500/10">
+                                                <label>${['HP','ATK','DEF','SPATK','SPDEF','SPE'][i]}</label>
+                                                <span id="step-${idx}-res-${i}" class="result-text">-</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <div class="mt-5"><span id="step-${idx}-ot">...</span></div>
+                                </div>
+                            </div>
+                            <button onclick="removeStep(${idx})" class="absolute top-6 right-6 text-gray-700 hover:text-red-500 transition-colors">✕</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(stepDiv);
+            });
+            updateAllResults();
+        }
+
+        function updateParentVisuals(idx) {
+            ['A', 'B'].forEach(key => {
+                const p = steps[idx][`parent${key}`];
+                const display = document.getElementById(`step-${idx}-parent${key}-display`);
+                const inputs = document.getElementById(`step-${idx}-parent${key}-inputs`);
+                if (!display || !inputs) return;
+
+                if (p.source === 'base') {
+                    display.classList.add('hidden');
+                    inputs.classList.remove('hidden');
+                } else {
+                    display.classList.remove('hidden');
+                    inputs.classList.add('hidden');
+                    const src = calculateStepResult(parseInt(p.source));
+                    p.name = src.name; 
+                    p.ot = src.ot;
+                    display.innerHTML = `
+                        <div class="text-[11px] text-blue-300 font-black mb-1 uppercase">${src.name}</div>
+                        <div class="text-[9px] text-gray-500 mb-2 font-bold uppercase">Inheriting Step ${parseInt(p.source)+1}</div>
+                        <div class="grid grid-cols-3 gap-1">
+                            ${src.ivs.map((iv, i) => {
+                                let color = "text-blue-400";
+                                if(iv.min === 31 && iv.max === 31) color = "text-green-400 font-bold";
+                                if(iv.min === 0 && iv.max === 0) color = "text-red-500 font-bold";
+                                return `<div class="bg-blue-900/20 rounded p-1 text-[9px] text-center ${color}">${iv.min==iv.max?iv.min:iv.min+'-'+iv.max}</div>`
+                            }).join('')}
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        function updateName(idx, key, val) { steps[idx][`parent${key}`].name = val; updateAllResults(); }
+        function updateGender(idx, key, val) { 
+            steps[idx][`parent${key}`].gender = val; 
+            steps[idx][key === 'A' ? 'parentB' : 'parentA'].gender = (val === 'male' ? 'female' : 'male');
+            renderFlow(); 
+        }
+        function updateIV(idx, key, ivIdx, val) { steps[idx][`parent${key}`].ivs[ivIdx] = parseInt(val) || 0; updateAllResults(); }
+        function updateOT(idx, key, val) { steps[idx][`parent${key}`].ot = val; updateAllResults(); }
+        function updateSource(idx, key, val) { steps[idx][`parent${key}`].source = val; renderFlow(); }
+        function updateBrace(idx, key, val) { steps[idx][`brace${key}`] = val; updateAllResults(); }
+        function removeStep(idx) { steps.splice(idx, 1); renderFlow(); }
+
+        addStep();
+    </script>
+</body>
+</html>
