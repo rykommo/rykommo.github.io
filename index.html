@@ -20,7 +20,6 @@
             min-height: 100vh;
         }
 
-        /* NAVIGATION & GLOW */
         .nav-overlay-bg { 
             background-color: rgba(15, 23, 42, 0.9); 
             border-bottom: 1px solid rgba(100, 116, 139, 0.2);
@@ -41,7 +40,6 @@
             color: white;
         }
         
-        /* CONTENT CARDS */
         .content-card { 
             background-color: rgba(30, 41, 59, 0.7); 
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -49,7 +47,6 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        /* ANIMATIONS */
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -63,7 +60,6 @@
         .logo-delay { animation-delay: 0.2s; }
         .card-delay { animation-delay: 0.5s; }
 
-        /* FIXED OVERLAPPING FOOTER */
         .copyright-container {
             position: fixed;
             bottom: 0;
@@ -104,8 +100,26 @@
         <div class="col-span-1"></div>
     </header>
 
-    <main class="flex-1 flex flex-col items-center justify-center p-12 pb-24">
+    <main class="flex-1 flex flex-col items-center justify-center p-12 pb-24 relative">
         
+        <!-- ENLARGED VERTICAL ROAMER WIDGET -->
+        <div class="absolute top-8 right-12 z-40 hidden xl:block">
+            <div class="content-card p-6 rounded-[2.5rem] flex flex-col items-center border-blue-500/30 animate-fade-in shadow-2xl" style="width: 200px; animation-delay: 0.8s;">
+                 <span class="text-xs font-black text-blue-400 uppercase tracking-widest mb-4">Monthly Roamers</span>
+                 
+                 <div class="flex flex-col items-center space-y-[-10px] mb-4">
+                      <img id="roamer-1" src="" class="w-28 h-28 filter drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:scale-110 transition-transform duration-300">
+                      <img id="roamer-2" src="" class="w-28 h-28 filter drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:scale-110 transition-transform duration-300">
+                 </div>
+
+                 <div class="w-full h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent mb-3"></div>
+                 
+                 <div id="roamer-timer" class="text-[10px] font-mono font-bold text-gray-300 uppercase tracking-tighter">
+                     00d 00h 00m Left
+                 </div>
+            </div>
+        </div>
+
         <div class="mb-12 p-6 bg-transparent rounded-3xl flex flex-col items-center animate-fade-in logo-delay">
             <img src="logo.png" alt="Team AïR Logo" class="max-w-4xl max-h-[500px] w-auto h-auto filter drop-shadow-[0_20px_35px_rgba(59,130,246,0.4)]">
         </div>
@@ -132,6 +146,44 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function updateRoamerWidget() {
+            const now = new Date();
+            const month = now.getMonth();
+            const pairIndex = month % 3;
+
+            const pairs = [
+                [145, 244], // Zapdos, Entei
+                [146, 245], // Moltres, Suicune
+                [144, 243]  // Articuno, Raikou
+            ];
+
+            const roamer1 = document.getElementById('roamer-1');
+            const roamer2 = document.getElementById('roamer-2');
+            
+            roamer1.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pairs[pairIndex][0]}.png`;
+            roamer2.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pairs[pairIndex][1]}.png`;
+
+            const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+            
+            function updateTimer() {
+                const currentTime = new Date();
+                const diff = nextMonth - currentTime;
+                
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                
+                document.getElementById('roamer-timer').innerText = `${d}d ${h}h ${m}m Left`;
+            }
+
+            setInterval(updateTimer, 60000);
+            updateTimer();
+        }
+
+        updateRoamerWidget();
+    </script>
 
 </body>
 </html>
