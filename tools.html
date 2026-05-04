@@ -33,7 +33,6 @@
             color: white;
         }
 
-        /* RESTORED ANIMATION CSS */
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -80,6 +79,7 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- TOOL 1: BREEDING LAB -->
             <a href="breeding-lab.html" class="tool-card p-8 rounded-[2.5rem] flex flex-col items-center text-center animate-fade" style="animation-delay: 0.2s">
                 <div class="text-5xl mb-6">🥚</div>
                 <h2 class="text-2xl font-black uppercase mb-3">Shiny Breed Planner</h2>
@@ -87,10 +87,15 @@
                 <div class="mt-auto px-6 py-2 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 text-[10px] font-bold uppercase tracking-widest">Launch Tool</div>
             </a>
 
-            <div class="tool-card coming-soon p-8 rounded-[2.5rem] flex flex-col items-center justify-center text-center animate-fade" style="animation-delay: 0.3s">
-                <div class="px-6 py-2 bg-slate-800 rounded-full text-gray-500 text-[10px] font-bold uppercase tracking-widest">Coming Soon</div>
-            </div>
+            <!-- TOOL 2: GUIDES -->
+            <a href="guides.html" class="tool-card p-8 rounded-[2.5rem] flex flex-col items-center text-center animate-fade" style="animation-delay: 0.3s">
+                <div class="text-5xl mb-6">📖</div>
+                <h2 class="text-2xl font-black uppercase mb-3">Guides</h2>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed">Essential resources and walkthroughs for advanced hunting.</p>
+                <div class="mt-auto px-6 py-2 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 text-[10px] font-bold uppercase tracking-widest">Open Guides</div>
+            </a>
 
+            <!-- TOOL 3: COMING SOON -->
             <div class="tool-card coming-soon p-8 rounded-[2.5rem] flex flex-col items-center justify-center text-center animate-fade" style="animation-delay: 0.4s">
                 <div class="px-6 py-2 bg-slate-800 rounded-full text-gray-500 text-[10px] font-bold uppercase tracking-widest">Coming Soon</div>
             </div>
