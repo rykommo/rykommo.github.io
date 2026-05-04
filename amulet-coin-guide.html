@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amulet Coin Farming | Team AïR Tools</title>
+    <link rel="icon" type="image/png" href="air_ball.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        html { scrollbar-gutter: stable; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: #0f172a;
+            background-image: url('image_3.png'); background-size: cover; 
+            background-position: center; background-attachment: fixed; min-height: 100vh;
+        }
+        .nav-overlay-bg { 
+            background-color: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .btn-glow-active { box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); transition: all 0.3s ease; }
+        .btn-glow-active:hover { box-shadow: 0 0 25px rgba(37, 99, 235, 0.7); transform: translateY(-1px); }
+        
+        .glass-panel { 
+            background-color: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(20px); 
+        }
+
+        .build-card { 
+            background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(59, 130, 246, 0.2); 
+            border-radius: 2rem; position: relative; overflow: hidden; flex: 1;
+        }
+        .iv-grid-box { background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-label { font-size: 0.6rem; color: #64748b; font-weight: 900; text-transform: uppercase; margin-bottom: 2px; }
+        .stat-value { font-size: 1rem; font-weight: 900; color: #fff; }
+
+        .move-slot { background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; padding: 8px 15px; border-radius: 0 8px 8px 0; font-weight: 700; font-size: 0.85rem; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .copyright-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; max-height: 45px;
+            overflow: hidden; transition: max-height 0.6s;
+            background-color: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(100, 116, 139, 0.2); z-index: 100;
+        }
+        .copyright-container:hover { max-height: 400px; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <a href="index.html" class="flex items-center space-x-3 transition-all hover:opacity-80 group">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] group-hover:scale-105 transition-transform">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
+            </a>
+        </div>
+        <div class="col-span-2 flex justify-center space-x-6">
+            <a href="index.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Home</a>
+            <a href="announcements.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Announcements</a>
+            <a href="bounty-board.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Bounty Board</a>
+            <a href="tools.html" class="px-5 py-2 bg-blue-600 rounded-lg text-white font-semibold shadow-md transition btn-glow-active text-sm">Tools</a>
+            <a href="shiny-dex.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition nav-link-hover text-sm">Shiny Dex</a>
+        </div>
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 p-8 lg:p-12 max-w-[1600px] mx-auto w-full pb-48">
+        
+        <!-- HEADER -->
+        <div class="text-center mb-12 animate-fade">
+            <h1 class="text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] drop-shadow-[0_0_40px_rgba(59,130,246,0.6)] mb-2">Amulet Coin Farming</h1>
+            <p class="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Efficient Pickpocket Strategy at Island One.</p>
+        </div>
+
+        <div class="grid grid-cols-12 gap-8 items-start">
+            
+            <!-- LEFT SIDE: STRATEGY INFO -->
+            <div class="col-span-12 lg:col-span-4 space-y-6 animate-fade" style="animation-delay: 0.1s">
+                
+                <!-- WHY FARM BOX -->
+                <div class="glass-panel p-8 rounded-[2rem]">
+                    <h2 class="text-2xl font-black uppercase tracking-tight mb-6 flex items-center">
+                        <span class="w-1 h-6 bg-blue-500 mr-3"></span> Why Farm Amulet Coins?
+                    </h2>
+                    <ul class="space-y-4 text-gray-300 text-sm">
+                        <li class="flex items-start gap-3"><span class="text-blue-500 font-black">»</span> <div><strong>Market Value:</strong> Sells for <span class="text-white font-bold">19,000 - 22,000</span> average.</div></li>
+                        <li class="flex items-start gap-3"><span class="text-blue-500 font-black">»</span> <div><strong>Hourly Yield:</strong> Approximately <span class="text-white font-bold">150,000 - 200,000</span> per hour.</div></li>
+                        <li class="flex items-start gap-3"><span class="text-blue-500 font-black">»</span> <div><strong>Utility:</strong> Increases money from trainers/gyms by <span class="text-green-400 font-bold">50%</span>.</div></li>
+                        <li class="flex items-start gap-3"><span class="text-blue-500 font-black">»</span> <div><strong>Demand:</strong> High resale due to consumable status.</div></li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-blue-500 font-black">»</span> 
+                            <div>
+                                <strong>Shiny Chance:</strong> High Wild Encounter rates for <span class="text-yellow-400 font-bold">Shiny Payday/Pickup</span> Pokémon.
+                                <div class="mt-4 flex justify-center">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/52.png" alt="Shiny Meowth" class="w-24 h-24 filter drop-shadow-[0_0_15px_rgba(253,224,71,0.4)]">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- LOCATION & METHOD BOX -->
+                <div class="glass-panel p-8 rounded-[2rem]">
+                    <h3 class="text-xl font-black uppercase text-white mb-6 flex items-center">🧭 Location & Method</h3>
+                    <div class="mb-6 p-4 bg-slate-950/40 rounded-xl border border-blue-500/20">
+                        <p class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">The Spot</p>
+                        <p class="text-gray-300 text-[13px] leading-relaxed">Island One (Kanto). Surf right of Poké Center, head North into the grass.</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-start bg-slate-950/20 p-3 rounded-xl border border-white/5">
+                            <div class="w-6 h-6 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center font-black text-[10px]">1</div>
+                            <p class="text-[13px] text-gray-300"> Use Sweet Scent to attract a horde. Run from Ponyta's since they have nothing of value.</p>
+                        </div>
+                        <div class="flex gap-4 items-start bg-slate-950/20 p-3 rounded-xl border border-white/5">
+                            <div class="w-6 h-6 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center font-black text-[10px]">2</div>
+                            <p class="text-[13px] text-gray-300"> Use Imprison to block meowth from using Hypnosis/Nasty Plot. If the quick claw item on a meowth lets it move first here you can run since its not worth to try and steal 				the quick claw.</p>
+                        </div>
+                        <div class="flex gap-4 items-start bg-slate-950/20 p-3 rounded-xl border border-white/5">
+                            <div class="w-6 h-6 bg-blue-600 rounded-full flex-shrink-0 flex items-center justify-center font-black text-[10px]">3</div>
+                            <p class="text-[13px] text-gray-300"> Switch to Weavile to steal the item on contact. Sometimes you may see the Frisk ability pop up briefly for a second time when the battle starts, if this happened attack 				with Gothitelle's thief until you steal one of the items and the do then switch</p>
+                        </div>
+                    </div>
+
+                    <!-- PP REFRESH / HEALING INFO BOX -->
+                    <div class="mt-6 p-6 glass-panel rounded-2xl border border-blue-500/10">
+                        <p class="text-[12px] text-gray-300 leading-relaxed italic text-center">
+                            When you run out of sweet scent pp either refresh pp using leppa berries if you dont mind loosing a bit of profit or head north into the cave and heal up in the middle of the hot spring <span class="text-blue-300 font-bold">(go into the middle of the big pool and press A to heal your pokemon)</span>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: POKEMON CARDS -->
+            <div class="col-span-12 lg:col-span-8 space-y-8 animate-fade" style="animation-delay: 0.2s">
+                
+                <h2 class="text-3xl font-black uppercase tracking-tighter mb-8 flex items-center">
+                    <span class="w-12 h-1 px bg-blue-500 mr-4"></span> Required Squad Builds
+                </h2>
+
+                <!-- GOTHITELLE SECTION -->
+                <div class="flex gap-6 items-stretch">
+                    <!-- Why Gothel Box (Left) -->
+                    <div class="glass-panel p-8 rounded-[2rem] w-1/3 flex flex-col justify-center">
+                        <h3 class="text-base font-black uppercase text-blue-400 mb-6 border-b border-blue-500/20 pb-2">Why Gothitelle?</h3>
+                        <ul class="space-y-4 text-[14px] text-gray-200 leading-relaxed font-semibold">
+                            <li class="flex gap-2"><span>•</span> Imprison disables wild Meowth's non-damaging moves.</li>
+                            <li><span>•</span> Forces Meowth into contact-only moves.</li>
+                            <li><span>•</span> Bulky and outspeeds wild spawns.</li>
+                            <li><span>•</span> Has Frisk to detect Quick claws or Amulet Coins.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Gothitelle Build Card (Right) -->
+                    <div class="build-card p-8 shadow-2xl w-2/3">
+                        <div class="flex items-center gap-6 mb-6">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/576.png" class="w-20 h-20 filter drop-shadow-lg">
+                            <div>
+                                <h3 class="text-4xl font-black text-white uppercase tracking-tighter">Gothitelle</h3>
+                                <div class="flex gap-2 mt-1">
+                                    <span class="px-3 py-1 bg-blue-600 rounded-md text-[10px] font-black uppercase tracking-widest">Level 91-100</span>
+                                    <span class="px-3 py-1 bg-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest text-blue-300 font-bold">Impish, Relaxed or Bold</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="stat-label mb-2">Target Stats (IVs)</div>
+                                <div class="grid grid-cols-3 gap-2 mb-4">
+                                    <div class="iv-grid-box"><div class="stat-label">HP</div><div class="stat-value">20+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">ATK</div><div class="stat-value">20+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">DEF</div><div class="stat-value">20+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">SPA</div><div class="stat-value text-white">0+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">SPD</div><div class="stat-value">20+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">SPE</div><div class="stat-value text-white">0+</div></div>
+                                </div>
+                                <div class="stat-label mb-2 text-blue-400">EV Training</div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="iv-grid-box bg-blue-900/20"><div class="stat-label">HP</div><div class="stat-value text-blue-300">252</div></div>
+                                    <div class="iv-grid-box bg-blue-900/20"><div class="stat-label">DEF</div><div class="stat-value text-blue-300">252</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">ATK</div><div class="stat-value">6</div></div>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="stat-label mb-2">Moveset</div>
+                                <div class="move-slot">Thief</div>
+                                <div class="move-slot">Imprison</div>
+                                <div class="move-slot">Hypnosis</div>
+                                <div class="move-slot">Nasty Plot</div>
+                                <div class="mt-6 p-4 bg-blue-600/10 border border-blue-500/30 rounded-xl text-center">
+                                    <p class="text-[11px] text-blue-300 font-black uppercase tracking-widest">Ability: Frisk</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WEAVILE SECTION -->
+                <div class="flex gap-6 items-stretch">
+                    <!-- Weavile Build Card (Left) -->
+                    <div class="build-card p-8 shadow-2xl w-2/3">
+                        <div class="flex items-center gap-6 mb-6">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/461.png" class="w-20 h-20 filter drop-shadow-lg">
+                            <div>
+                                <h3 class="text-4xl font-black text-white uppercase tracking-tighter">Weavile</h3>
+                                <div class="flex gap-2 mt-1">
+                                    <span class="px-3 py-1 bg-blue-600 rounded-md text-[10px] font-black uppercase tracking-widest">Level 65+</span>
+                                    <span class="px-3 py-1 bg-slate-700 rounded-md text-[10px] font-black uppercase tracking-widest text-blue-300 font-bold">Defense boosting nature preferred</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="stat-label mb-2">Target Stats (IVs)</div>
+                                <div class="grid grid-cols-3 gap-2 mb-4">
+                                    <div class="iv-grid-box"><div class="stat-label">HP</div><div class="stat-value">20+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">ATK</div><div class="stat-value">20+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">DEF</div><div class="stat-value">20+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">SPA</div><div class="stat-value text-white">0+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">SPD</div><div class="stat-value text-white">0+</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">SPE</div><div class="stat-value text-white">0+</div></div>
+                                </div>
+                                <div class="stat-label mb-2 text-blue-400">EV Training</div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="iv-grid-box bg-blue-900/20"><div class="stat-label">HP</div><div class="stat-value text-blue-300">252</div></div>
+                                    <div class="iv-grid-box bg-blue-900/20"><div class="stat-label">DEF</div><div class="stat-value text-blue-300">252</div></div>
+                                    <div class="iv-grid-box"><div class="stat-label">ATK</div><div class="stat-value">6</div></div>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="stat-label mb-2">Moveset</div>
+                                <div class="move-slot">Thief</div>
+                                <div class="h-10 border border-dashed border-white/10 rounded-lg"></div>
+                                <div class="h-10 border border-dashed border-white/10 rounded-lg"></div>
+                                <div class="h-10 border border-dashed border-white/10 rounded-lg"></div>
+                                <div class="mt-6 p-4 bg-blue-600/10 border border-blue-500/30 rounded-xl text-center">
+                                    <p class="text-[11px] text-blue-300 font-black uppercase tracking-widest">Ability: Pickpocket</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Tips Box (Right) -->
+                    <div class="glass-panel p-8 rounded-[2rem] w-1/3 flex flex-col justify-center">
+                        <h3 class="text-base font-black uppercase text-blue-400 mb-6 border-b border-blue-500/20 pb-2">Additional Tips</h3>
+                        <ul class="space-y-4 text-[14px] text-gray-200 leading-relaxed font-semibold">
+                            <li class="flex gap-2"><span>•</span> <strong>Rock Smash:</strong> Farm nearby rocks for fossils during sessions.</li>
+                            <li class="flex gap-2"><span>•</span> <strong>Shiny Ready:</strong> Carry a dedicated catching Pokémon.</li>
+                            <li class="flex gap-2"><span>•</span> <strong>Stolen Items:</strong> All items can be sold for additional profit.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="copyright-container">
+        <div class="p-4">
+            <div class="text-xs text-gray-500 text-center mb-4 uppercase tracking-tighter">© 2026 Team AïR</div>
+            <div class="text-[10px] text-gray-400 leading-relaxed text-center max-w-4xl mx-auto opacity-80">
+                Copyright Team AiR. All rights reserved. Strategies documented by Team AïR for community use.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
