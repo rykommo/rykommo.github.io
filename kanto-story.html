@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanto Speedrun Guide | Team AïR Tools</title>
+    <link rel="icon" type="image/png" href="air_ball.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        html { scrollbar-gutter: stable; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: #0f172a;
+            background-image: url('image_3.png'); background-size: cover; 
+            background-position: center; background-attachment: fixed; min-height: 100vh;
+        }
+        .nav-overlay-bg { 
+            background-color: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .btn-glow-active { box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); transition: all 0.3s ease; }
+        
+        .guide-section {
+            background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px); border-radius: 1.5rem; margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        summary {
+            list-style: none; padding: 1.25rem 2rem; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(59, 130, 246, 0.05); transition: background 0.3s;
+        }
+        summary:hover { background: rgba(59, 130, 246, 0.1); }
+        summary::-webkit-details-marker { display: none; }
+
+        .checkmark {
+            display: none;
+            color: #4ade80;
+            text-shadow: 0 0 15px rgba(74, 222, 128, 0.9), 0 0 30px rgba(34, 197, 94, 0.5);
+            font-weight: 900;
+            font-size: 1.75rem;
+        }
+
+        details:not([open]) .checkmark { display: block; }
+        details[open] .arrow-icon { display: block; }
+        details:not([open]) .arrow-icon { display: none; }
+
+        .content-area { padding: 1.5rem 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .step-list { list-style: none; }
+        .step-list li { 
+            position: relative; padding-left: 1.75rem; margin-bottom: 0.75rem; 
+            color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;
+        }
+        .step-list li::before {
+            content: '→'; position: absolute; left: 0; color: #3b82f6; font-weight: 900;
+        }
+
+        b { color: #fff; font-weight: 700; }
+        .highlight-item { color: #60a5fa; font-weight: 800; }
+        .highlight-boss { color: #f87171; font-weight: 800; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .copyright-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; max-height: 45px;
+            overflow: hidden; transition: max-height 0.6s;
+            background-color: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(100, 116, 139, 0.2); z-index: 100;
+        }
+        .copyright-container:hover { max-height: 400px; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <a href="index.html" class="flex items-center space-x-3 transition-all hover:opacity-80 group">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] group-hover:scale-105 transition-transform">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
+            </a>
+        </div>
+        <div class="col-span-2 flex justify-center">
+            <a href="story-guides.html" class="px-8 py-2 bg-blue-600 rounded-lg text-white font-black uppercase tracking-widest shadow-md transition btn-glow-active text-sm">
+                ← Back to Overview
+            </a>
+        </div>
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 p-8 lg:p-12 max-w-[1000px] mx-auto w-full pb-48">
+        
+        <div class="text-center mb-12 animate-fade">
+            <h1 class="text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] drop-shadow-[0_0_40px_rgba(59,130,246,0.6)]">Kanto Story/Region Guide</h1>
+        </div>
+
+        <div class="animate-fade" style="animation-delay: 0.2s">
+            
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">PALLET TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go down the stairs</b> and exit the house.</li>
+                        <li><b>Go north</b> to the grass.</li>
+                        <li><b>Pick your starter pokemon</b> and go south.</li>
+                        <li><b>Fight your rival</b> and exit the house.</li>
+                        <li><b>Go north</b> to route 1.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 1</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> to viridian city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VIRIDIAN CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north east</b> and enter the pokemart.</li>
+                        <li>You will get the <span class="highlight-item">oak's parcel</span>.</li>
+                        <li><b>Exit the house</b> and get your Pokemon.</li>
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Go south</b> to route 1.</li>
+                        <li><b>Go south</b> to pallet town.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">PALLET TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south east</b> and enter the laboratory.</li>
+                        <li><b>Talk to the professor</b>.</li>
+                        <li><b>Exit the laboratory</b> and enter the house north.</li>
+                        <li><b>Talk to the girl</b>.</li>
+                        <li><b>TP back</b> to Viridian City.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VIRIDIAN CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> to route 2.</li>
+                        <li><b>Go north</b> to viridian forest.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VIRIDIAN FOREST</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go east all the way</b> and go north all the way and avoid the two trainers.</li>
+                        <li><b>Go north west</b> and then go south.</li>
+                        <li><b>Follow the path west</b> and fight the last trainer.</li>
+                        <li><b>Go north</b> to route 2.</li>
+                        <li><b>Go north</b> to pewter city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">PEWTER CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north west</b> and enter the gym.</li>
+                        <li><b>Avoid the trainer</b> and beat the gym leader without setup by spamming Ice Beam.</li>
+                        <li><b>Exit the gym</b> and go east all the way.</li>
+                        <li><b>Talk to the guy with the glasses</b> to get the <span class="highlight-item">runningshoes</span>.</li>
+                        <li><b>Go east</b> to route 3.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 3</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go east</b> and avoid the girl trainer.</li>
+                        <li><b>Fight only the bug trainers</b> and avoid all other trainers.</li>
+                        <li><b>Follow the path</b> until you get to a pokecenter.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 4</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the cave</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MT.MOON</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north east</b> and go north when you have to choose paths.</li>
+                        <li><b>Then go west</b> and avoid all trainers on your way.</li>
+                        <li><b>Go past the second ladder</b> and stay on the far right to avoid the trainer with the blue hat.</li>
+                        <li><b>Follow the path north west</b> and go down the ladder.</li>
+                        <li><b>Follow the path south east</b> and go down the ladder.</li>
+                        <li><b>Go east</b>, avoid the first rocket trainer and follow the path to fight the next rocket trainer.</li>
+                        <li><b>Then go north</b> and fight the scientist.</li>
+                        <li><b>Now pick either fossil</b>.</li>
+                        <li><b>Follow the path</b> and go up the ladder.</li>
+                        <li><b>Go up the ladder</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 4</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Follow the path east</b> to cerulean city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">CERULEAN CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Now go north</b> to fight your rival without setup.</li>
+                        <li><b>Go north</b> to route 24.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 24</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Fight the 6 trainers</b>.</li>
+                        <li><b>Go north</b> and the 6th trainer will give you a <span class="highlight-item">nugget</span>.</li>
+                        <li><b>Go east</b> to route 25.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 25</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Avoid the first hiker</b> and the guy with a blue hat.</li>
+                        <li><b>Fight the 2nd hiker</b>.</li>
+                        <li><b>Avoid the next trainer</b> with a blue hat.</li>
+                        <li><b>Fight the next trainer</b>.</li>
+                        <li><b>Avoid the hiker</b> and fight the guy in green.</li>
+                        <li><b>Avoid the trainer</b> with a blue hat and fight the girl trainer.</li>
+                        <li><b>Go east</b> and enter the house.</li>
+                        <li><b>Talk to the pokemon</b> and say yes.</li>
+                        <li><b>Click on the computer</b> and talk to bill to get a <span class="highlight-item">s.s.ticket</span>.</li>
+                        <li><b>TP back</b> to cerulean city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">CERULEAN CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go east</b> and enter the gym.</li>
+                        <li><b>Avoid the first trainer</b> and talk to the gym leader on her right side to avoid the 2nd trainer.</li>
+                        <li><b>Beat the gym leader</b> without setup.</li>
+                        <li><b>Exit the gym</b> and go in the house north.</li>
+                        <li><b>Go in the door north</b>.</li>
+                        <li><b>Beat the rocket trainer</b>.</li>
+                        <li><b>Go south</b> to route 5.</li>
+                        <li><b>Enter the small house</b> south east.</li>
+                        <li><b>Now go down the stairs</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">UNDERGROUND PATH</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Follow the path south</b>, go up the stairs and exit the house.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 6</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south</b> and avoid the trainers until you get to the two trainers in green.</li>
+                        <li><b>Fight only the guy trainer</b> by making him see you from the western most position.</li>
+                        <li><b>Go south</b> to vermilion city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VERMILION CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go in the pokecenter</b>. Exit the house.</li>
+                        <li>(Optional: Go in the house west of the pokecenter and talk to the fisher. Say yes to get a <span class="highlight-item">oldrod</span>.)</li>
+                        <li><b>Go in the house south west</b> of the pokecenter and talk to the guy with a hat. Say yes to get a <span class="highlight-item">bike voucher</span>.</li>
+                        <li><b>Exit the house</b>.</li>
+                        <li><b>Go south west all the way</b> and go south to the next area.</li>
+                        <li><b>Go south</b> and enter the boat.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">S.S. ANNE</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go west</b> and go up the stairs, go south east and follow the path north to fight your rival without setup.</li>
+                        <li><b>Go up the stairs</b> and talk to the captain to get a <span class="highlight-item">HM01-Cut</span>.</li>
+                        <li><b>Exit the boat</b> and go to vermilion city.</li>
+                        <li>(Optional: Get <span class="highlight-item">HM Flash</span> to make caves easier)</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VERMILION CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south west of the city</b> and go in the gym.</li>
+                        <li><b>Click on the trash cans</b> and find the first switch.</li>
+                        <li><b>Then the 2nd switch</b> will always be in a trash can next to the first switch.</li>
+                        <li><b>Make sure you try all 4 directions</b> for the 2nd switch.</li>
+                        <li><b>Try to avoid the two rotating trainers</b> as well as possible, but fight the trainer at the gate.</li>
+                        <li><b>Beat the gym leader</b> with stealth rocks setup to be safe.</li>
+                        <li><b>Exit the gym</b> and go back north to cerulean city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">CERULEAN CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go in the house south west</b> of the pokecenter.</li>
+                        <li><b>Talk to the guy with the yellow hair</b> to get a <span class="highlight-item">bicycle</span>.</li>
+                        <li><b>Exit the house</b>.</li>
+                        <li><b>Go in the house north of the gym</b>.</li>
+                        <li><b>Go in the door north</b>.</li>
+                        <li><b>Go east</b> to route 9.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 9</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Cut the tree</b> and fight a girl trainer.</li>
+                        <li><b>Follow the path east</b> and avoid the hiker.</li>
+                        <li><b>Continue east</b> and go north and fight a bug trainer.</li>
+                        <li><b>Go north east</b> and avoid the hiker.</li>
+                        <li><b>Jump south</b> and go east to route 10 while avoiding the girl trainer.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 10</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Use cut to avoid the trainer</b> and go in the cave.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROCK TUNNEL</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li>(Optional: Follow this guide)</li>
+                        <li><b>Go south</b> until you hit a wall then go east until you can go south again.</li>
+                        <li><b>Go south and fight a trainer</b>.</li>
+                        <li><b>Follow the path east</b> and go north to go down the ladder.</li>
+                        <li><b>Hug the left wall</b> and go south until you can go west again.</li>
+                        <li><b>Go west and fight a trainer</b>.</li>
+                        <li><b>Follow the path</b> until you can go north.</li>
+                        <li><b>Then go north</b> and follow the path north east after fighting a trainer.</li>
+                        <li><b>Go all the way east</b>, then all the way north and follow the northern wall west to go up the ladder.</li>
+                        <li><b>Go south all the way</b>, then east about 10-15 steps.</li>
+                        <li><b>Go north all the way</b> and go down the ladder east.</li>
+                        <li><b>Go all the way west</b> and go a few steps south until you can continue west again.</li>
+                        <li><b>Go a few steps north</b> to go west all the way, then go north to get to the ladder.</li>
+                        <li><b>Go west all the way</b>, then continue south and fight a trainer in green.</li>
+                        <li><b>Get around her</b> and go all the way south.</li>
+                        <li><b>Continue west all the way</b>, then go a few steps north to continue west.</li>
+                        <li><b>Go south all the way</b> as soon as you can and go a few steps west to exit the cave.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 10</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go east and then south</b> to lavender town while avoiding all the trainers.</li>
+                        <li><b>Heal</b> and go west to route 8.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 8</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Avoid the girl trainer</b> and fight the old man.</li>
+                        <li><b>Go west</b> and cut the trees to avoid the trainers.</li>
+                        <li><b>Go north</b> and enter the small house.</li>
+                        <li><b>Go down the stairs</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">UNDERGROUND PATH</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go west</b>, then up the stairs and exit the house.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 7</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north west</b> to celadon city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">CELADON CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Go west to route 16</b>.</li>
+                        <li><b>Then cut the tree</b> and hug the fence south to avoid the trainers.</li>
+                        <li><b>Continue west</b> and enter the house to talk to the girl to get <span class="highlight-item">HM02-Fly</span>.</li>
+                        <li><b>Fly/TP back</b> to celadon city.</li>
+                        <li><b>Go in the big red house</b> south west of the pokecenter.</li>
+                        <li><b>Go north and fight the rocket trainer</b>.</li>
+                        <li><b>Click on the poster</b> and go down the stairs.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROCKET HIDEOUT</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go down the stairs</b>. Go down the stairs.</li>
+                        <li><b>Go south west</b> and go on the arrow pointing west.</li>
+                        <li><b>Go south</b> and go on the arrow pointing east.</li>
+                        <li><b>Go south west all the way</b> and go on the upper arrow pointing east.</li>
+                        <li><b>Avoid the rocket trainer</b> and follow the path to go down the stairs.</li>
+                        <li><b>Go north west</b> and fight the rocket trainer to get the lift key.</li>
+                        <li><b>Go south east</b> and go up the stairs.</li>
+                        <li><b>Go north</b> and go on the arrow pointing north.</li>
+                        <li><b>Go on the arrow pointing north</b>.</li>
+                        <li><b>Go north east</b> and go up the stairs.</li>
+                        <li><b>Avoid the trainer</b> and go on the lower arrow pointing west.</li>
+                        <li><b>Pick a moonstone</b> and go south as far as you can, then go on the arrow that is pointing east on your right.</li>
+                        <li><b>Go east</b> on the arrow pointing east.</li>
+                        <li><b>Go west</b> on the arrow pointing west.</li>
+                        <li><b>Go south</b> and go on the upper arrow pointing west.</li>
+                        <li><b>Go south</b> on the arrow pointing east.</li>
+                        <li><b>Go in the elevator</b> and go to the B4F floor.</li>
+                        <li><b>Go north</b> and fight the 2 rocket trainers.</li>
+                        <li><b>Beat the boss</b> of team rocket without setup.</li>
+                        <li><b>Pick a silph scope</b> and exit the building via B2F.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">CELADON CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south all the way</b> and cut the tree.</li>
+                        <li><b>Go south west</b> and enter the gym.</li>
+                        <li><b>Go north west</b> to fight a beauty girl while avoiding the other trainers.</li>
+                        <li><b>Cut the tree</b> and fight the next beauty girl.</li>
+                        <li><b>The next girl is the gym leader</b>. Beat the gym leader without setup.</li>
+                        <li><b>Exit the gym</b>.</li>
+                        <li><b>Now fly to lavender town</b>.</li>
+                        <li><b>Go in the building east</b> of the pokecenter.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">POKEMON TOWER</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north east</b> and go up the stairs.</li>
+                        <li><b>Go north</b> and fight your rival without setup.</li>
+                        <li><b>Go west</b> and go up the stairs.</li>
+                        <li><b>Go south</b> and avoid the 2 trainers.</li>
+                        <li><b>Go east</b> and go up the stairs.</li>
+                        <li><b>Start by going one step south</b> to avoid the trainer, then go north and follow the path west to go up the stairs.</li>
+                        <li><b>Go north</b> and avoid the first trainer, then go east and fight the one trainer above the stairs.</li>
+                        <li><b>Then go up the stairs</b>.</li>
+                        <li><b>Go north</b> and avoid the first trainer, then fight the next 2 trainers.</li>
+                        <li><b>Follow the path</b> and beat the marowak near the stairs and go up the stairs.</li>
+                        <li><b>Go north</b> and fight the 3 rocket trainers.</li>
+                        <li><b>Talk to the old man</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">LAVENDER TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Talk to the old man again</b> to get a <span class="highlight-item">pokeflute</span>.</li>
+                        <li><b>Exit the house</b> and fly to celadon city.</li>
+                        <li><b>Go west to route 16</b>.</li>
+                        <li><b>Click the snorlax</b> and say yes. Beat snorlax.</li>
+                        <li><b>Go west on your bike</b> and enter the door.</li>
+                        <li><b>Avoid the first biker</b> by going west from the southern most position.</li>
+                        <li><b>Fight the 2nd biker</b>.</li>
+                        <li><b>Avoid the other bikers</b> and go south to route 17.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 17</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Avoid all the trainers</b> and go south east a few steps until you see the grass.</li>
+                        <li><b>Go east all the way</b>.</li>
+                        <li><b>Go south until you see a biker not moving</b> while avoiding all the trainers.</li>
+                        <li><b>Avoid that biker too</b>.</li>
+                        <li><b>Go south</b> and avoid a trainer.</li>
+                        <li><b>Go south all the way</b> to route 18 while avoiding all the trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 18</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south east and enter the house</b>.</li>
+                        <li><b>Now go east and enter the door</b>.</li>
+                        <li><b>Go east to fuchsia city</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">FUCHSIA CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Get a <span class="highlight-item">chople berry</span></b>.</li>
+                        <li><b>Go south west</b> and enter the gym.</li>
+                        <li><b>Go south east all the way</b> and go north all the way while only fighting the second trainer.</li>
+                        <li><b>Go west all the way</b>, then go south as far as you can.</li>
+                        <li><b>Go 3 steps east</b>, then 2 steps south, 1 step west and 1 step south again.</li>
+                        <li><b>Continue south all the way</b> and go one step west to fight the one trainer.</li>
+                        <li><b>Go south all the way</b>.</li>
+                        <li><b>Put chople berry on Pory</b>.</li>
+                        <li><b>Go 1 step north</b> and go east to the gym leader.</li>
+                        <li><b>Beat him with nasty plot setup</b>.</li>
+                        <li><b>Exit the gym</b> (optional: How to get <span class="highlight-item">HM03-Surf</span> and <span class="highlight-item">HM04-Strength</span>)</li>
+                        <li><b>Go in the house south east</b> of the city.</li>
+                        <li><b>Talk to the fisher and say yes</b> to get a <span class="highlight-item">goodrod</span>.</li>
+                        <li><b>Now go north</b> and enter the safari zone.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">SAFARI ZONE</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north east</b> and go in the next area.</li>
+                        <li><b>Go north all the way</b> and go west to the next area.</li>
+                        <li><b>Go west and use the second stairs</b> to go north, then west all the way.</li>
+                        <li><b>Then go south</b> to the next area.</li>
+                        <li><b>Go south and pick the goldteeth</b>.</li>
+                        <li><b>Enter the house</b> and talk to the guy to get a <span class="highlight-item">HM03-Surf</span> and exit the house.</li>
+                        <li><b>Go back</b> to fuchsia city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">FUCHSIA CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go in the house east of the pokecenter</b> and talk to the guy to get a <span class="highlight-item">HM04-Strength</span> after you give him the gold teeth.</li>
+                        <li><b>Fly to celadon city</b>.</li>
+                        <li><b>Go in the building west of the pokecenter</b> and talk to the grandma to get a <span class="highlight-item">tea</span>.</li>
+                        <li><b>Exit the building</b>.</li>
+                        <li><b>Go east</b> to saffron city.</li>
+                        <li><b>Go in the building north east</b> of the pokecenter.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">SILPH CO.</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north and enter the elevator</b>.</li>
+                        <li><b>Go to the 5th floor</b> and exit the elevator.</li>
+                        <li><b>Go west all the way</b> while avoiding the scientist trainer.</li>
+                        <li><b>Go south</b> and avoid the rocket trainer.</li>
+                        <li><b>Go in the portal</b> and go in the portal again to go back.</li>
+                        <li><b>Go east and pick a cardkey</b>.</li>
+                        <li><b>Go west and go in the portal</b>.</li>
+                        <li><b>Go in the portal again</b> to go back.</li>
+                        <li><b>Go north west through the first door</b> and go in the portal.</li>
+                        <li><b>Go north east and go in the portal</b> of the first room on the western side.</li>
+                        <li><b>Beat your rival</b> without setup.</li>
+                        <li><b>Go in the portal south east</b>.</li>
+                        <li><b>Go south and fight the trainer</b>.</li>
+                        <li><b>Go north and beat the boss</b> of team rocket without setup.</li>
+                        <li><b>Go north and talk to the old man</b> to get a <span class="highlight-item">masterball</span>.</li>
+                        <li><b>Go north west</b> and go in the portal.</li>
+                        <li><b>Go in the portal north east</b>.</li>
+                        <li><b>Go north and enter the elevator</b>.</li>
+                        <li><b>Go to the 1st floor</b> and exit the elevator.</li>
+                        <li><b>Exit the building</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">SAFFRON CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north east and enter the gym</b>.</li>
+                        <li><b>Go in the portal</b> and then go in the portal north west while avoiding the trainer.</li>
+                        <li><b>Go in the portal south west</b> while avoiding the trainer.</li>
+                        <li><b>Go in the portal south west</b>.</li>
+                        <li><b>Beat the gym leader</b> without setup.</li>
+                        <li><b>Go in the portal</b> and go in the portal north west.</li>
+                        <li><b>Go in the portal north east</b>.</li>
+                        <li><b>Go in the portal south east</b>.</li>
+                        <li><b>Exit the gym</b> and fly to pallet town.</li>
+                        <li><b>Surf south</b> to route 21.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 21</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south to cinnabar island</b> while avoiding all the trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">POKEMON MANSION</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go up the stairs</b>.</li>
+                        <li><b>Go north and up the stairs</b>.</li>
+                        <li><b>Click on the statue and say yes</b>.</li>
+                        <li><b>Go south east and jump down</b> on the western side.</li>
+                        <li><b>Avoid the trainer</b> and go down the stairs.</li>
+                        <li><b>Go west</b>. Click on the statue and say yes.</li>
+                        <li><b>Go north east</b>. Click on the statue and say yes.</li>
+                        <li><b>Go west and get a secret key</b> on the table.</li>
+                        <li><b>Go east</b>. Click on the statue and say yes.</li>
+                        <li><b>Go south west</b>. Click on the statue and say yes.</li>
+                        <li><b>Go east and go up the stairs</b>.</li>
+                        <li><b>Go east and exit the building</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">CINNABAR ISLAND</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Now go in the gym</b>.</li>
+                        <li><b>Avoid the first trainer</b> and click on the computer. Say yes.</li>
+                        <li><b>Avoid the next 2 trainers</b> and click on the computer. Say no.</li>
+                        <li><b>Avoid the next trainer</b> and click on the computer. Say no.</li>
+                        <li><b>Avoid the next trainer</b> and click on the computer. Say no.</li>
+                        <li><b>Avoid the next trainer</b> and click on the computer. Say yes.</li>
+                        <li><b>Avoid the next trainer</b> and click on the computer. Say no.</li>
+                        <li><b>Fight the next trainer</b>.</li>
+                        <li><b>Avoid the next trainer</b> and click on the computer.</li>
+                        <li><b>Beat the gym leader</b> with nasty plot setup.</li>
+                        <li><b>Exit the gym</b>.</li>
+                        <li><b>Talk to bill</b> and say yes.</li>
+                        <li><b>Fly to viridian city</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VIRIDIAN CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the gym</b>.</li>
+                        <li><b>Go north to the room with the 3 trainers</b> and avoid them.</li>
+                        <li><b>Go east and fight the trainer</b>.</li>
+                        <li><b>Follow the path and go north</b> to fight the trainer.</li>
+                        <li><b>Re-enter the gym</b> and follow the same path to the gym leader.</li>
+                        <li><b>Put Chople Berry on Pory</b>.</li>
+                        <li><b>Beat the gym leader</b> with stealth rocks setup.</li>
+                        <li><b>Talk to the gym leader again</b>.</li>
+                        <li><b>Exit the gym</b>.</li>
+                        <li><b>Go west to route 22</b>.</li>
+                        <li><b>Go north west to fight your rival</b> with stealth rocks setup.</li>
+                        <li><b>Go west and enter the house</b>.</li>
+                        <li><b>Go north and enter the door</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 23</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north and follow the path</b>.</li>
+                        <li><b>Show your badges</b> then enter the cave.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VICTORY ROAD</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Push the boulder south 1 time</b>.</li>
+                        <li><b>Push the boulder east 5 times</b>.</li>
+                        <li><b>Push the boulder north 2 times</b>.</li>
+                        <li><b>Push the boulder east 7 times</b>.</li>
+                        <li><b>Push the boulder north 2 times</b>.</li>
+                        <li><b>Push the boulder east 1 time</b> and push the boulder south 1 time.</li>
+                        <li><b>Go north east</b> while hugging the eastern wall to avoid the trainer.</li>
+                        <li><b>Go north west on the western side</b> and go up the stairs while avoiding the guy trainer.</li>
+                        <li><b>Go south and push the boulder south 1 time</b>.</li>
+                        <li><b>Push the boulder west 2 times</b>.</li>
+                        <li><b>Push the boulder south 1 time</b>.</li>
+                        <li><b>Push the boulder west 2 times</b>.</li>
+                        <li><b>Go south east all the way</b> and avoid the 2 trainers.</li>
+                        <li><b>Go north and go up the stairs</b>.</li>
+                        <li><b>Push the boulder north 2 times</b>.</li>
+                        <li><b>Push the boulder west 22 times</b>.</li>
+                        <li><b>Push the boulder south 1 time</b>.</li>
+                        <li><b>Push the boulder west 4 times</b>.</li>
+                        <li><b>Push the boulder south 3 times</b>.</li>
+                        <li><b>Push the boulder east 1 time</b>.</li>
+                        <li><b>Go east and go to the girl</b>.</li>
+                        <li><b>Avoid that trainer and go west</b>.</li>
+                        <li><b>Follow the path</b> and avoid the next 2 trainers.</li>
+                        <li><b>Go east and push the boulder</b> in the hole.</li>
+                        <li><b>Go down the hole and push the boulder</b> west 19 times.</li>
+                        <li><b>Go east</b>.</li>
+                        <li><b>Go up the stairs</b> and avoid the 2 trainers.</li>
+                        <li><b>Walk north a few steps</b> and go down the stairs.</li>
+                        <li><b>The last guy is not fighting you</b>.</li>
+                        <li><b>Go east and enter the door</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">INDIGO PLATEAU</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north all the way</b>.</li>
+                        <li><b>Heal up</b>, get some healing items and at least 2 chople berries.</li>
+                        <li><b>Make sure to start with silk scarf on Pory</b>.</li>
+                        <li><b>Lorelei</b>: Nasty Plot setup</li>
+                        <li><b>Bruno</b>: Chople Berry on Pory, stealth rocks and nasty plot setup; Machamp has Mach Punch → If he kills Pory, swap to a different mon and heal Pory back up</li>
+                        <li><b>Agatha</b>: Chople Berry on Pory, (stealth rocks &) nasty plot setup</li>
+                        <li><b>Lance</b>: Silk Scarf on Pory, nasty plot setup; in case of Aerodactyl always swap to another Pokemon first to tank Sky Attack</li>
+                        <li><b>Gary (Champion)</b>: stealth rocks, nasty plot setup</li>
+                    </ul>
+                </div>
+            </details>
+
+        </div>
+    </main>
+
+    <footer class="copyright-container">
+        <div class="p-4">
+            <div class="text-xs text-gray-500 text-center mb-4 uppercase tracking-tighter">© 2026 Team AïR</div>
+            <div class="text-[10px] text-gray-400 leading-relaxed text-center max-w-4xl mx-auto opacity-80">
+                Copyright Team AiR. All rights reserved. This speedrun guide is compiled for the Team AïR community.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
