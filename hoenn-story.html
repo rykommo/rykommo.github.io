@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Region Speedrun Guide | Team AïR Tools</title>
+    <link rel="icon" type="image/png" href="air_ball.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        html { scrollbar-gutter: stable; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: #0f172a;
+            background-image: url('image_3.png'); background-size: cover; 
+            background-position: center; background-attachment: fixed; min-height: 100vh;
+        }
+        .nav-overlay-bg { 
+            background-color: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .btn-glow-active { box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); transition: all 0.3s ease; }
+        
+        .content-card { 
+            background-color: rgba(30, 41, 59, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px); 
+        }
+
+        .build-card { 
+            background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(59, 130, 246, 0.2); 
+            border-radius: 2rem; overflow: hidden; transition: transform 0.3s ease;
+            display: flex; flex-direction: column;
+        }
+        .build-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.5); }
+
+        .section-divider {
+            font-size: 0.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-divider::after { content: ''; flex: 1; height: 1px; background: rgba(59, 130, 246, 0.2); }
+
+        .stat-grid-box { 
+            background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 6px; 
+            border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center;
+            min-height: 45px; justify-content: center;
+        }
+        .ev-box { background: rgba(59, 130, 246, 0.05); }
+        
+        .stat-label { font-size: 0.55rem; color: #64748b; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { font-size: 0.85rem; font-weight: 900; color: #fff; }
+
+        .move-slot { 
+            background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; 
+            padding: 8px 12px; border-radius: 0 8px 8px 0; font-weight: 700; 
+            font-size: 0.75rem; margin-bottom: 6px; height: 36px; display: flex; align-items: center;
+        }
+        .move-slot-empty { background: rgba(255, 255, 255, 0.02); border-left: 3px solid rgba(255, 255, 255, 0.05); color: rgba(255,255,255,0.1); }
+
+        .ability-slot {
+            background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 8px; border-radius: 12px; text-align: center;
+            margin-top: 4px;
+        }
+
+        .region-btn {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+            width: 100%;
+        }
+        .region-btn:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .info-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+            margin-top: 0.75rem;
+            flex-grow: 1;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .copyright-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; max-height: 45px;
+            overflow: hidden; transition: max-height 0.6s;
+            background-color: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(100, 116, 139, 0.2); z-index: 100;
+        }
+        .copyright-container:hover { max-height: 400px; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <a href="index.html" class="flex items-center space-x-3 transition-all hover:opacity-80 group">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] group-hover:scale-105 transition-transform">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
+            </a>
+        </div>
+        <div class="col-span-2 flex justify-center space-x-6">
+            <a href="index.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Home</a>
+            <a href="announcements.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Announcements</a>
+            <a href="bounty-board.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Bounty Board</a>
+            <a href="tools.html" class="px-5 py-2 bg-blue-600 rounded-lg text-white font-semibold shadow-md transition btn-glow-active text-sm">Tools</a>
+            <a href="shiny-dex.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Shiny Dex</a>
+        </div>
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 p-8 lg:p-12 max-w-[1750px] mx-auto w-full pb-48">
+        
+        <div class="text-center mb-16 animate-fade">
+            <h1 class="text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] mb-2">Story/Region Guide (Speedrun)</h1>
+        </div>
+
+        <div class="content-card p-10 rounded-[2.5rem] mb-12 grid grid-cols-1 md:grid-cols-3 gap-12 animate-fade border-blue-500/20">
+            <div class="flex flex-col border-r border-white/10 pr-6">
+                <span class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Preparation Phase</span>
+                <div class="text-sm text-gray-400 space-y-3">
+                    <p>To efficiently rerun the regions you will need a specialized team:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Carry Mon:</b> <b>Porygon Z</b>. An excellent special attacker with enough speed and power to clear all story content.</li>
+                        <li><b>Critical Support:</b> <b>Sudowoodo</b>. Helps clear Gym Leaders and Elite 4 members/Champions who utilize Sturdy and Focus Sashes.</li>
+                        <li><b>Tactics:</b> Sudowoodo sets up <b>Stealth Rock</b> turn one, lives a hit with <b>Sturdy</b>, then uses <b>Sucker Punch</b> for chip damage so Porygon can oneshot everything.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col border-r border-white/10 px-6">
+                <span class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Core Strategy</span>
+                <div class="text-sm text-gray-400 space-y-3">
+                    <p>How to use this interactive guide:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Navigation:</b> Click on one of the <b>Regions</b> at the bottom to load the Rerun Guide.</li>
+                        <li><b>Step-by-Step:</b> It shows exactly what to do at every point in the Story.</li>
+                        <li><b>Mark Progress:</b> After finishing an element, <b>click on it</b> to mark it as complete and move on to the next point.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col pl-6">
+                <span class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Resource Management</span>
+                <div class="text-sm text-gray-400 space-y-3">
+                    <p>Alternatives if Porygon or evolution items are expensive during event seasons:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><b>Strong Pivot:</b> <b>Gallade</b> (High coverage and physical power).</li>
+                        <li><b>Moxie Snowball:</b> <b>Gyarados</b> or <b>Krookodile</b>.</li>
+                        <li><b>Multi-Hit:</b> <b>Skill Link Cloyster</b>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-20 animate-fade">
+            
+            <!-- CARD 1: PORYGON-Z -->
+            <div class="build-card p-5">
+                <div class="flex flex-col items-center mb-4 text-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/474.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Porygon-Z</h3>
+                    <span class="text-[9px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Modest Nature</span>
+                </div>
+                <div class="section-divider">IVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-3">
+                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">15+</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value text-gray-600">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">15+</div></div>
+                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPATK</div><div class="stat-value text-green-400">31</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">15+</div></div>
+                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPD</div><div class="stat-value text-green-400">31</div></div>
+                </div>
+                <div class="section-divider">EVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-4">
+                    <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">6</div></div>
+                    <div class="stat-grid-box ev-box"><div class="stat-label">SPATK</div><div class="stat-value text-blue-300">252</div></div>
+                    <div class="stat-grid-box ev-box"><div class="stat-label">SPD</div><div class="stat-value text-blue-300">252</div></div>
+                </div>
+                <div class="flex flex-col">
+                    <div class="move-slot">Tri Attack</div>
+                    <div class="move-slot">Ice Beam</div>
+                    <div class="move-slot">Shadow Ball</div>
+                    <div class="move-slot">Nasty Plot</div>
+                    <div class="ability-slot">
+                        <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Adaptability</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2: SUDOWOODO -->
+            <div class="build-card p-5">
+                <div class="flex flex-col items-center mb-4 text-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/185.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Sudowoodo</h3>
+                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
+                </div>
+                <div class="section-divider">IVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-3">
+                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
+                </div>
+                <div class="section-divider">EVs</div>
+                <div class="grid grid-cols-1 mb-4">
+                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
+                </div>
+                <div class="flex flex-col">
+                    <div class="move-slot">Sucker punch</div>
+                    <div class="move-slot">Stealth Rock</div>
+                    <div class="move-slot">Dig</div>
+                    <div class="move-slot move-slot-empty">-</div>
+                    <div class="ability-slot">
+                        <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Sturdy</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: TROPIUS -->
+            <div class="build-card p-5">
+                <div class="flex flex-col items-center mb-4 text-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/357.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Tropius</h3>
+                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
+                </div>
+                <div class="section-divider">IVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-3">
+                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
+                </div>
+                <div class="section-divider">EVs</div>
+                <div class="grid grid-cols-1 mb-4">
+                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
+                </div>
+                <div class="flex flex-col">
+                    <div class="move-slot">Cut</div>
+                    <div class="move-slot">Fly</div>
+                    <div class="move-slot">Rock Smash</div>
+                    <div class="move-slot">Strength</div>
+                    <div class="ability-slot">
+                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Ability: -</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 4: GOLDUCK -->
+            <div class="build-card p-5">
+                <div class="flex flex-col items-center mb-4 text-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/55.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Golduck</h3>
+                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
+                </div>
+                <div class="section-divider">IVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-3">
+                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
+                </div>
+                <div class="section-divider">EVs</div>
+                <div class="grid grid-cols-1 mb-4">
+                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
+                </div>
+                <div class="flex flex-col">
+                    <div class="move-slot">Surf</div>
+                    <div class="move-slot">Waterfall</div>
+                    <div class="move-slot">Whirlpool</div>
+                    <div class="move-slot">Dive</div>
+                    <div class="ability-slot">
+                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Ability: -</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 5: RALTS -->
+            <div class="build-card p-5">
+                <div class="flex flex-col items-center mb-4 text-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/280.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Ralts</h3>
+                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
+                </div>
+                <div class="section-divider">IVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-3">
+                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
+                </div>
+                <div class="section-divider">EVs</div>
+                <div class="grid grid-cols-1 mb-4">
+                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
+                </div>
+                <div class="flex flex-col">
+                    <div class="move-slot">Teleport</div>
+                    <div class="move-slot">Flash</div>
+                    <div class="move-slot move-slot-empty">-</div>
+                    <div class="move-slot move-slot-empty">-</div>
+                    <div class="ability-slot">
+                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Ability: -</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 6: GALLADE -->
+            <div class="build-card p-5">
+                <div class="flex flex-col items-center mb-4 text-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/475.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Gallade</h3>
+                    <span class="text-[9px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Adamant Nature</span>
+                </div>
+                <div class="section-divider">IVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-3">
+                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">15+</div></div>
+                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">ATK</div><div class="stat-value text-green-400">31</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">15+</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">0</div></div>
+                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">15+</div></div>
+                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPD</div><div class="stat-value text-green-400">31</div></div>
+                </div>
+                <div class="section-divider">EVs</div>
+                <div class="grid grid-cols-3 gap-1 mb-4">
+                    <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">6</div></div>
+                    <div class="stat-grid-box ev-box"><div class="stat-label">ATK</div><div class="stat-value text-blue-300">252</div></div>
+                    <div class="stat-grid-box ev-box"><div class="stat-label">SPD</div><div class="stat-value text-blue-300">252</div></div>
+                </div>
+                <div class="flex flex-col">
+                    <div class="move-slot">Psycho Cut</div>
+                    <div class="move-slot">Sacred Sword</div>
+                    <div class="move-slot">Leafblade</div>
+                    <div class="move-slot">Nightslash</div>
+                    <div class="ability-slot">
+                        <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Sharpness</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 animate-fade items-stretch">
+            <div class="flex flex-col">
+                <a href="kanto-story.html" class="region-btn p-8 rounded-3xl text-center group">
+                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Kanto</h4>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
+                </a>
+                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Unlocks roaming legendary Birds</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li></ul></div>
+            </div>
+            <div class="flex flex-col">
+                <a href="johto-story.html" class="region-btn p-8 rounded-3xl text-center group">
+                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Johto</h4>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
+                </a>
+                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Unlocks roaming legendary Dogs</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li><li class="flex gap-2"><span class="text-blue-500">»</span> Best XP-Training Spot</li><li class="flex gap-2"><span class="text-blue-500">»</span> Red fight (After Dex completion)</li><li class="flex gap-2"><span class="text-blue-500">»</span> Ditto farm location</li></ul></div>
+            </div>
+            <div class="flex flex-col">
+                <a href="hoenn-story.html" class="region-btn p-8 rounded-3xl text-center group">
+                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Hoenn</h4>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
+                </a>
+                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Best Ditto farm location</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li><li class="flex gap-2"><span class="text-blue-500">»</span> Beauty Contest</li><li class="flex gap-2"><span class="text-blue-500">»</span> Lots of EV training Spots</li></ul></div>
+            </div>
+            <div class="flex flex-col">
+                <a href="sinnoh-story.html" class="region-btn p-8 rounded-3xl text-center group">
+                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Sinnoh</h4>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
+                </a>
+                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Best Trainer Rerun Route</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li></ul></div>
+            </div>
+            <div class="flex flex-col">
+                <a href="unova-story.html" class="region-btn p-8 rounded-3xl text-center group">
+                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Unova</h4>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
+                </a>
+                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Berry planting (Airfield & Shrine)</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li><li class="flex gap-2"><span class="text-blue-500">»</span> Good Trainer Rerun Route</li><li class="flex gap-2"><span class="text-blue-500">»</span> Best speed EV + XP (Route 12)</li></ul></div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="copyright-container">
+        <div class="p-4">
+            <div class="text-xs text-gray-500 text-center mb-4 uppercase tracking-tighter">© 2026 Team AïR</div>
+            <div class="text-[10px] text-gray-400 leading-relaxed text-center max-w-4xl mx-auto opacity-80">
+                Copyright Team AiR. All rights reserved. Strategies documented by Team AïR for community use.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
