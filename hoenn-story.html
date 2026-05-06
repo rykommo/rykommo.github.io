@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Region Speedrun Guide | Team AïR Tools</title>
+    <title>Hoenn Speedrun Guide | Team AïR Tools</title>
     <link rel="icon" type="image/png" href="air_ball.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -20,77 +20,46 @@
         }
         .btn-glow-active { box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); transition: all 0.3s ease; }
         
-        .content-card { 
-            background-color: rgba(30, 41, 59, 0.7); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(16px); 
+        .guide-section {
+            background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px); border-radius: 1.5rem; margin-bottom: 1.5rem;
+            overflow: hidden;
         }
 
-        .build-card { 
-            background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(59, 130, 246, 0.2); 
-            border-radius: 2rem; overflow: hidden; transition: transform 0.3s ease;
-            display: flex; flex-direction: column;
+        summary {
+            list-style: none; padding: 1.25rem 2rem; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(59, 130, 246, 0.05); transition: background 0.3s;
         }
-        .build-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.5); }
+        summary:hover { background: rgba(59, 130, 246, 0.1); }
+        summary::-webkit-details-marker { display: none; }
 
-        .section-divider {
-            font-size: 0.5rem;
+        .checkmark {
+            display: none;
+            color: #4ade80;
+            text-shadow: 0 0 15px rgba(74, 222, 128, 0.9), 0 0 30px rgba(34, 197, 94, 0.5);
             font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #3b82f6;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .section-divider::after { content: ''; flex: 1; height: 1px; background: rgba(59, 130, 246, 0.2); }
-
-        .stat-grid-box { 
-            background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 6px; 
-            border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center;
-            min-height: 45px; justify-content: center;
-        }
-        .ev-box { background: rgba(59, 130, 246, 0.05); }
-        
-        .stat-label { font-size: 0.55rem; color: #64748b; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
-        .stat-value { font-size: 0.85rem; font-weight: 900; color: #fff; }
-
-        .move-slot { 
-            background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; 
-            padding: 8px 12px; border-radius: 0 8px 8px 0; font-weight: 700; 
-            font-size: 0.75rem; margin-bottom: 6px; height: 36px; display: flex; align-items: center;
-        }
-        .move-slot-empty { background: rgba(255, 255, 255, 0.02); border-left: 3px solid rgba(255, 255, 255, 0.05); color: rgba(255,255,255,0.1); }
-
-        .ability-slot {
-            background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 8px; border-radius: 12px; text-align: center;
-            margin-top: 4px;
+            font-size: 1.75rem;
         }
 
-        .region-btn {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative; overflow: hidden;
-            width: 100%;
+        details:not([open]) .checkmark { display: block; }
+        details[open] .arrow-icon { display: block; }
+        details:not([open]) .arrow-icon { display: none; }
+
+        .content-area { padding: 1.5rem 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .step-list { list-style: none; }
+        .step-list li { 
+            position: relative; padding-left: 1.75rem; margin-bottom: 0.75rem; 
+            color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;
         }
-        .region-btn:hover {
-            border-color: #3b82f6;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-            transform: scale(1.02);
+        .step-list li::before {
+            content: '→'; position: absolute; left: 0; color: #3b82f6; font-weight: 900;
         }
-        
-        .info-box {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px);
-            border-radius: 1.5rem;
-            padding: 1.25rem;
-            margin-top: 0.75rem;
-            flex-grow: 1;
-        }
+
+        b { color: #fff; font-weight: 700; }
+        .highlight-item { color: #60a5fa; font-weight: 800; }
+        .highlight-boss { color: #f87171; font-weight: 800; }
 
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(30px); }
@@ -116,296 +85,1006 @@
                 <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
             </a>
         </div>
-        <div class="col-span-2 flex justify-center space-x-6">
-            <a href="index.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Home</a>
-            <a href="announcements.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Announcements</a>
-            <a href="bounty-board.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Bounty Board</a>
-            <a href="tools.html" class="px-5 py-2 bg-blue-600 rounded-lg text-white font-semibold shadow-md transition btn-glow-active text-sm">Tools</a>
-            <a href="shiny-dex.html" class="px-5 py-2 hover:bg-slate-700/80 rounded-lg text-gray-300 transition text-sm">Shiny Dex</a>
+        <div class="col-span-2 flex justify-center">
+            <a href="story-guides.html" class="px-8 py-2 bg-blue-600 rounded-lg text-white font-black uppercase tracking-widest shadow-md transition btn-glow-active text-sm">
+                ← Back to Overview
+            </a>
         </div>
         <div class="col-span-1"></div>
     </header>
 
-    <main class="flex-1 p-8 lg:p-12 max-w-[1750px] mx-auto w-full pb-48">
+    <main class="flex-1 p-8 lg:p-12 max-w-[1000px] mx-auto w-full pb-48">
         
-        <div class="text-center mb-16 animate-fade">
-            <h1 class="text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] mb-2">Story/Region Guide (Speedrun)</h1>
+        <div class="text-center mb-12 animate-fade">
+            <h1 class="text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] drop-shadow-[0_0_40px_rgba(59,130,246,0.6)]">Hoenn Story/Region Guide</h1>
         </div>
 
-        <div class="content-card p-10 rounded-[2.5rem] mb-12 grid grid-cols-1 md:grid-cols-3 gap-12 animate-fade border-blue-500/20">
-            <div class="flex flex-col border-r border-white/10 pr-6">
-                <span class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Preparation Phase</span>
-                <div class="text-sm text-gray-400 space-y-3">
-                    <p>To efficiently rerun the regions you will need a specialized team:</p>
-                    <ul class="list-disc list-inside space-y-2">
-                        <li><b>Carry Mon:</b> <b>Porygon Z</b>. An excellent special attacker with enough speed and power to clear all story content.</li>
-                        <li><b>Critical Support:</b> <b>Sudowoodo</b>. Helps clear Gym Leaders and Elite 4 members/Champions who utilize Sturdy and Focus Sashes.</li>
-                        <li><b>Tactics:</b> Sudowoodo sets up <b>Stealth Rock</b> turn one, lives a hit with <b>Sturdy</b>, then uses <b>Sucker Punch</b> for chip damage so Porygon can oneshot everything.</li>
+        <div class="animate-fade" style="animation-delay: 0.2s">
+
+            <!-- GENERAL TIPS -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">GENERAL TIPS</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li>This guide can help you finish the Hoenn region in <b>~1:45h</b> with optimal gameplay!</li>
+                        <li>Before starting the run, get a few potions and plenty of repels.</li>
+                        <li>If you want, you can get a few revives and hyper potions for late game too.</li>
+                        <li>Additionally, you will need up to 2 <span class="highlight-item">Chople Berries</span> and a <span class="highlight-item">Silk Scarf</span>.</li>
+                        <li>For all important story fights, the recommended fight setup is described.</li>
+                        <li>Before the 8th badge, only a few fights need any setup.</li>
+                        <li>For some fights, a <span class="highlight-boss">stealth rock setup</span> can increase overall speed or help with consistency in case of crits.</li>
+                        <li>In the rare case of crits/poison killing your Pory, feel free to revive and switch back in according to described setup.</li>
+                        <li>The default Pory item is <span class="highlight-item">Silk Scarf</span> (unless described otherwise).</li>
                     </ul>
                 </div>
-            </div>
-            <div class="flex flex-col border-r border-white/10 px-6">
-                <span class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Core Strategy</span>
-                <div class="text-sm text-gray-400 space-y-3">
-                    <p>How to use this interactive guide:</p>
-                    <ul class="list-disc list-inside space-y-2">
-                        <li><b>Navigation:</b> Click on one of the <b>Regions</b> at the bottom to load the Rerun Guide.</li>
-                        <li><b>Step-by-Step:</b> It shows exactly what to do at every point in the Story.</li>
-                        <li><b>Mark Progress:</b> After finishing an element, <b>click on it</b> to mark it as complete and move on to the next point.</li>
+            </details>
+
+            <!-- LITTLEROOT TOWN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">LITTLEROOT TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Exit the truck</b>.</li>
+                        <li><b>Go up the stairs</b> and click on the clock.</li>
+                        <li><b>Go down the stairs</b>.</li>
+                        <li><b>Exit the house</b> and enter the house east/west (depends on character gender).</li>
+                        <li><b>Go up the stairs</b> and click on the ball.</li>
+                        <li><b>Go down the stairs</b> and exit the house.</li>
+                        <li><b>Go north</b> to route 101.</li>
+                        <li><b>Click on the bag</b> and pick your starter pokemon.</li>
+                        <li><b>Exit the laboratory</b> and go north to route 101.</li>
+                        <li><b>Go north</b> to oldale town.</li>
                     </ul>
                 </div>
-            </div>
-            <div class="flex flex-col pl-6">
-                <span class="text-xs font-black text-blue-400 uppercase tracking-widest mb-3">Resource Management</span>
-                <div class="text-sm text-gray-400 space-y-3">
-                    <p>Alternatives if Porygon or evolution items are expensive during event seasons:</p>
-                    <ul class="list-disc list-inside space-y-2">
-                        <li><b>Strong Pivot:</b> <b>Gallade</b> (High coverage and physical power).</li>
-                        <li><b>Moxie Snowball:</b> <b>Gyarados</b> or <b>Krookodile</b>.</li>
-                        <li><b>Multi-Hit:</b> <b>Skill Link Cloyster</b>.</li>
+            </details>
+
+            <!-- OLDALE TOWN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">OLDALE TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Pick your Pokemon</b> from the PC & set TP location.</li>
+                        <li><b>Go north</b> to route 103.</li>
+                        <li><b>Go north</b> and <span class="highlight-boss">beat your rival</span>.</li>
+                        <li><b>TP back</b> to oldale town.</li>
+                        <li><b>Go south</b> to littleroot town.</li>
                     </ul>
                 </div>
-            </div>
+            </details>
+
+            <!-- LITTLEROOT TOWN RETURN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">LITTLEROOT TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter lab south west</b> and talk to professor.</li>
+                        <li><b>Exit the house</b>.</li>
+                        <li><b>Go north</b> and talk to your mom.</li>
+                        <li><b>TP to oldale town</b>.</li>
+                        <li><b>Go west</b> to route 102.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 102 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 102</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go west</b> and fight the trainer with the blue cap.</li>
+                        <li><b>Go west in the grass</b> to avoid a trainer.</li>
+                        <li><b>Follow the path</b> and avoid all the trainers by walking.</li>
+                        <li><b>Go west</b> to petalburg city.</li>
+                        <li><b>Go north</b> and enter the gym.</li>
+                        <li><b>Talk to your dad</b> and exit the gym.</li>
+                        <li><b>Go west</b> to route 104.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 104 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 104</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north west all the way</b> to skip all trainers and skip lady trainer by walking past.</li>
+                        <li><b>Go north</b> to petalburg woods.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- PETALBURG WOODS -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">PETALBURG WOODS</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go west</b> and avoid the bug trainer.</li>
+                        <li><b>Follow the path</b> to fight a team aqua member.</li>
+                        <li><b>Follow the path north</b> to route 104 and avoid all trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 104 CONTINUED -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 104</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go east</b> and avoid the trainers.</li>
+                        <li><b>Go north</b> and fight the twins.</li>
+                        <li><b>Go north</b> to rustboro city and avoid the fisher.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- RUSTBORO CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">RUSTBORO CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Go in the house west of the pokecenter</b> and get a <span class="highlight-item">HM-Cut</span> from the guy.</li>
+                        <li><b>Exit the house</b>.</li>
+                        <li><b>Go in the gym</b>.</li>
+                        <li><b>Avoid all the trainers</b> and <span class="highlight-boss">beat the gym leader</span> with stealth rock setup to save time (all have sturdy but should not be able to kill you either way).</li>
+                        <li><b>Exit the gym</b> and go north east to route 116. (If you want to heal, exit the gym and go a few steps west BEFORE TP. Else, it can mess up the cutscene trigger).</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 116 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 116</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go all the way east</b> to Rusturf Tunnel while avoiding all trainers but the last hiker.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- RUSTURF TUNNEL -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">RUSTURF TUNNEL</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go northeast</b> to fight the Aqua member, then leave the cave and <b>TP back to rustboro</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- RUSTBORO CITY RETURN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">RUSTBORO CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go all the way north east</b> to the guy with the glasses.</li>
+                        <li><b>Exit the building</b> and go south to talk to your rival.</li>
+                        <li><b>Say no</b> and go south to route 104.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- PETALBURG WOODS RETURN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">PETALBURG WOODS</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south</b> by jumping over all ledges and continue to route 104.</li>
+                        <li><b>Go south west</b> and enter the house.</li>
+                        <li><b>Talk to the guy</b> and say yes to go to dewford town.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- DEWFORD TOWN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">DEWFORD TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li>(Optional: Talk to the fisher and say yes to get a <span class="highlight-item">oldrod</span>.)</li>
+                        <li><b>Enter the gym</b> and walk 1 step east.</li>
+                        <li><b>Walk 5 steps north</b>.</li>
+                        <li><b>Walk 5 steps east</b>.</li>
+                        <li><b>Walk 8 steps north</b>.</li>
+                        <li><b>Walk 1 step east</b>.</li>
+                        <li><b>Walk 9 steps north</b>.</li>
+                        <li><b>Walk 8 steps west</b>.</li>
+                        <li><b>Walk 1 step north</b> and <span class="highlight-boss">beat the gym leader</span> with no setup.</li>
+                        <li><b>Exit the gym</b> and go north to route 106.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 106 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 106</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Avoid the 2 trainers</b>.</li>
+                        <li><b>Enter the cave</b>.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- GRANITE CAVE -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">GRANITE CAVE</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Talk to the hiker</b> to get a <span class="highlight-item">HM-Flash</span>, teach to Xatu.</li>
+                        <li><b>Go west</b> and go down the stairs.</li>
+                        <li><b>Use Flash</b>.</li>
+                        <li><b>Follow the path east</b> and go down the stairs.</li>
+                        <li><b>Follow the path</b> and go up the stairs.</li>
+                        <li><b>Go up the stairs again</b>.</li>
+                        <li><b>Go west all the way</b> and enter the door.</li>
+                        <li><b>Talk to steven</b>.</li>
+                        <li><b>Go east all the way</b> and exit the cave.</li>
+                        <li><b>Go back to the pokecenter</b> and talk to the old man east to go to slateport city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 109 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 109</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> to slateport city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- SLATEPORT CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">SLATEPORT CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> until you see a old woman and enter the house to her right.</li>
+                        <li><b>Talk to the guy north west</b> and exit the house.</li>
+                        <li><b>Go in the house east of the pokemart</b>.</li>
+                        <li><b>Go up the stairs</b>.</li>
+                        <li><b>Talk to the guy</b> to fight the 2 aqua members.</li>
+                        <li><b>Exit the house</b>.</li>
+                        <li><b>Go north</b> to route 110.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 110 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 110</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> and fight the 2 trainers.</li>
+                        <li><b>Go north east</b> and follow the path to <span class="highlight-boss">fight your rival</span> without setup.</li>
+                        <li><b>Avoid the next 3 trainers</b> and fight the last 2.</li>
+                        <li><b>Follow the path</b> to mauville city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- MAUVILLE CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MAUVILLE CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the house east of the pokemart</b> and talk to the guy to get a <span class="highlight-item">HM-RockSmash</span>.</li>
+                        <li><b>Exit the house</b> and go in the house east of the pokecenter.</li>
+                        <li><b>Talk to the guy with the glasses</b> and say yes to get a <span class="highlight-item">bicycle</span>.</li>
+                        <li><b>Pick a machbike</b> and exit the house.</li>
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Fight Wally</b> near the gym entrance.</li>
+                        <li><b>Enter the gym</b> and fight the guy with the blue hat while avoiding all the switches.</li>
+                        <li><b>Press the switch north west</b>.</li>
+                        <li><b>Fight the gym leader</b> without setup (only Magneton needs 2 hits) and exit the gym.</li>
+                        <li><b>Go north</b> to route 111.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- FALLARBOR & METEOR FALLS -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 111 & METEOR FALLS</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north west to the cave</b> to enter Fiery Path, then follow the past northwest to Fallarbor Town.</li>
+                        <li><b>DO NOT ENTER PC</b>.</li>
+                        <li><b>Then, go southwest</b> and continue to Meteor Falls while only fighting a hiker and avoiding all other trainers.</li>
+                        <li><b>Go west</b> to the professor.</li>
+                        <li><b>Exit the cave</b>, TP back to Mauville and go back to Fiery Path, but instead of entering the the cave, head northeast and enter the house and talk to the woman to get to Mt. Chimney.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- MT.CHIMNEY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MT.CHIMNEY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north west all the way</b> and fight the 3 magma trainers.</li>
+                        <li><b>Talk to the boss of team magma</b> and beat him.</li>
+                        <li><b>Click on the machine</b> and say yes to get a <span class="highlight-item">meteorite</span>.</li>
+                        <li><b>Go south all the way</b> to jagged pass.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- JAGGED PASS -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">JAGGED PASS</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Avoid the hiker</b> and jump south while avoiding all trainers.</li>
+                        <li><b>Go west</b> to Lavaridge town.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- LAVARIDGE TOWN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">LAVARIDGE TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the gym</b>.</li>
+                        <li><b>Go in the hole north west</b>.</li>
+                        <li><b>Go in the hole north west</b>.</li>
+                        <li><b>Go in the hole north west</b>.</li>
+                        <li><b>Go in the hole north west</b>.</li>
+                        <li><b>Go in the middle hole</b>.</li>
+                        <li><b>Go in the middle hole</b>.</li>
+                        <li><b>Go in the hole south east</b>.</li>
+                        <li><b>Jump south 1 time</b> and go in the hole.</li>
+                        <li><span class="highlight-boss">Beat the gym leader</span> with no setup and exit the gym.</li>
+                        <li><b>Go east</b> to route 112.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 112 & 117 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 112 & ROUTE 117</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Jump east</b> and go east to route 111 while avoiding the trainers.</li>
+                        <li><b>Go south</b> to mauville city.</li>
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Go west</b> to route 117.</li>
+                        <li><b>Go west</b> to verdanturf town while avoiding the trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- VERDANTURF TOWN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VERDANTURF TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the cave</b>.</li>
+                        <li><b>Go north</b>.</li>
+                        <li><b>Smash a rock</b> and you will get a <span class="highlight-item">HM-Strength</span>.</li>
+                        <li><b>Go west</b> and enter the door.</li>
+                        <li><b>Follow the path west</b> to Rustboro City while avoiding all trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- RUSTBORO CITY RETURN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">RUSTBORO CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go in the building north west</b>.</li>
+                        <li><b>Go up the stairs north east</b>.</li>
+                        <li><b>Now go up the stairs west</b>.</li>
+                        <li><b>Talk to the guy east</b> to get a <span class="highlight-item">exp.share</span>.</li>
+                        <li><b>Exit the building</b> and go south to route 104.</li>
+                        <li><b>Follow the path</b> to petalburg city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- PETALBURG CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">PETALBURG CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the gym</b>.</li>
+                        <li><b>Go in the door north east</b> and fight a trainer.</li>
+                        <li><b>Go in the door north east</b> and fight a trainer.</li>
+                        <li><b>Go in the door north</b> and fight a trainer.</li>
+                        <li><b>Go in the door north</b> and beat your dad by spamming <span class="highlight-item">Tri-Attack</span> (Slaking ejects with Eject Button).</li>
+                        <li><b>Go east</b> to Oldale Town and go north to route 103. (If you didn’t heal in between, TP back to Mauville City now).</li>
+                        <li><b>Surf east</b> and continue north to get to Mauville City.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- MAUVILLE CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MAUVILLE CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Exit the house</b> and talk to the gym leader.</li>
+                        <li>You will get a <span class="highlight-item">basementkey</span>.</li>
+                        <li><b>Go south</b> to route 110.</li>
+                        <li><b>Go south</b> until you see a fisher.</li>
+                        <li><b>Surf east</b> and enter the cave.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- NEW MAUVILLE -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">NEW MAUVILLE</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the door north</b> and go on the blue switch.</li>
+                        <li><b>Go west</b> and go on the green switch.</li>
+                        <li><b>Follow the path</b> until you see a ball on a blue switch.</li>
+                        <li><b>Pick the escaperope</b> and go on the blue switch.</li>
+                        <li><b>Follow the path north west</b> and pick a fullheal on the second green switch.</li>
+                        <li><b>Go on the green switch</b>.</li>
+                        <li><b>Go east</b> and go on the red switch.</li>
+                        <li><b>Use the escape rope</b> and TP back to Mauville City.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- MAUVILLE CITY RETURN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MAUVILLE CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Talk to the gym leader</b> to get a <span class="highlight-item">tm-thunderbolt</span>.</li>
+                        <li><b>Go east</b> to route 118.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 118 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 118</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Fight the 2 trainers</b>.</li>
+                        <li><b>Surf east</b> while avoiding the other trainers.</li>
+                        <li>(Optional: Talk to the fisher north and say yes to get a <span class="highlight-item">goodrod</span>).</li>
+                        <li><b>Go north</b> to route 119.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 119 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 119</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> while avoiding all the trainers.</li>
+                        <li><b>Enter the weather institute</b>.</li>
+                        <li>You can click on the bed to heal your team.</li>
+                        <li><b>Go upstairs</b> to fight Admin Shelly without setup.</li>
+                        <li><span class="highlight-boss">Fight your rival</span> without setup.</li>
+                        <li>You will get a <span class="highlight-item">HM-Fly</span>.</li>
+                        <li><b>Go north east</b> to fortree city.</li>
+                        <li><b>Use the grass path</b> to avoid a trainer before the city entrance.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- FORTREE CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">FORTREE CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Set TP location</b>.</li>
+                        <li><b>Go up the stairs east</b> of the pokecenter.</li>
+                        <li><b>Go east</b> to route 120.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 120 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 120</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go east</b> and avoid the girl.</li>
+                        <li><b>Go south to bridge</b> and talk to steven.</li>
+                        <li><b>Say yes</b> and fight a pokemon.</li>
+                        <li><b>TP back</b> to fortree.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- FORTREE CITY RETURN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">FORTREE CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go in the gym</b> and avoid all trainers but the third bird guy and second camper.</li>
+                        <li><span class="highlight-boss">Beat the gym leader</span> with stealth rocks setup and go east to route 120.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 120 & 121 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 120 & 121</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south east to route 121</b> and use repel in grass to avoid trainers.</li>
+                        <li><b>Avoid all trainers</b> and go east to lilycove city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- LILYCOVE CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">LILYCOVE CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go back to the twins</b> on route 121 and surf south to route 122.</li>
+                        <li><b>Surf south all the way</b> and go east to enter a cave.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- MT.PYRE -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MT.PYRE</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go through the left door</b>.</li>
+                        <li><b>Follow the path north</b> to fight the 3 aqua members.</li>
+                        <li><b>Go north</b> and talk to the girl to get a <span class="highlight-item">magmaemblem</span>.</li>
+                        <li><b>Fly to lavaridge town</b>.</li>
+                        <li><b>Go east to route 112</b> and enter the house north east.</li>
+                        <li><b>Talk to the girl</b> and say yes.</li>
+                        <li><b>Go south</b> to jagged pass.</li>
+                        <li><b>Go south</b> and enter the cave while avoiding the trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- MAGMA HIDEOUT -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MAGMA HIDEOUT</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Always follow the southernmost path</b> entering only the white shining doors until you reach the team magma boss.</li>
+                        <li><span class="highlight-boss">Beat him</span> without setup and enter the door.</li>
+                        <li><b>Pick the escape rope</b> and use it to exit the cave.</li>
+                        <li><b>Fly to slateport city</b>.</li>
+                        <li><b>Talk to the guy with the glasses</b> north east of the pokecenter.</li>
+                        <li><b>Talk to the boss of team aqua</b>.</li>
+                        <li><b>Exit the house</b> and fly to lilycove city.</li>
+                        <li><b>Go north east from the pokecenter</b> until you see a guy with a brown hat.</li>
+                        <li><b>Jump south 2 times</b> and go down the stairs.</li>
+                        <li><b>Surf north east</b> and enter the cave.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- AQUA HIDEOUT -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">AQUA HIDEOUT</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Surf north</b> and avoid a trainer.</li>
+                        <li><b>Enter the door north east</b>.</li>
+                        <li><b>Go in the portal west</b>.</li>
+                        <li>(Optional description to get master ball: <b>Go in the portal south west</b>. Go in the middle portal. Go in the portal west. Go in the portal west. There is 4 balls. Take the nugget south west. Take the masterball north west. The other balls are the pokemon electrode. Go in the portal. Go in the portal east. Go in the middle portal. Go in the portal east. Go in the portal all the way north.)</li>
+                        <li><b>Go east all the way</b> and fight the 2 trainers.</li>
+                        <li><b>Go in the portal</b> and enter the door.</li>
+                        <li><b>Avoid a trainer</b> and go in the portal north east and enter the door.</li>
+                        <li><b>Avoid a trainer</b> and go in the door north east.</li>
+                        <li><b>Fight the 2 trainers</b> and go in the portal.</li>
+                        <li><b>Talk to the aqua member</b> and beat him.</li>
+                        <li><b>Go in the portal south east</b>.</li>
+                        <li><b>Enter the door</b> and exit the cave.</li>
+                        <li><b>Surf east</b> to route 124.</li>
+                        <li><b>Beat only the guy swimmer</b> while avoiding the girl.</li>
+                        <li><b>Surf east to mossdeep city</b> while avoiding all the trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- MOSSDEEP CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">MOSSDEEP CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Buy a level 35-44 Chansey</b> with Light Screen and Heal Pulse off GTL (~2-3k).</li>
+                        <li><b>Also buy a few Hyper Potions</b> to be safe.</li>
+                        <li><b>Enter the gym</b> and go in the portal south west.</li>
+                        <li><b>Go south</b> and go on the green switch 2 times.</li>
+                        <li><b>Go north</b> and go in the portal all the way north.</li>
+                        <li><b>Go west</b> in the portal.</li>
+                        <li><b>Go on the southern blue switch 3 times</b>.</li>
+                        <li><b>Go on the red switch 3 times</b> and move out of the grandma north to fight the girl.</li>
+                        <li><b>Go on the northern blue switch 4 times</b>.</li>
+                        <li><b>Go on the southern blue switch once</b>.</li>
+                        <li><b>Go in the portal north east</b>.</li>
+                        <li><b>Go in the portal north east</b>.</li>
+                        <li><b>Put Chansey in front of the party</b> and Porygon-Z second, give a <span class="highlight-item">Chople Berry</span> to Pory.</li>
+                        <li><b>Use light screen and nasty plot turn 1</b>, then spam Heal Pulse on pory and Shadow Ball to beat the gym leaders.</li>
+                        <li><b>Prio the opposing Pokemon in the following order:</b> Grumpig > Xatu > Lunatone > Solrock > Claydol.</li>
+                        <li>(If Chansey goes down, switch in any other Pokemon and use its turn to heal Pory when below 50% HP; exception: hyper potion on pory in Chansey turn 2 if Pory is below 50% HP because Chansey will be outsped by opposing Pokemon).</li>
+                        <li><b>Go in the portal north west</b> and exit the gym.</li>
+                        <li><b>Go south east of the city</b>.</li>
+                        <li><b>Go north east</b> and enter the building.</li>
+                        <li><b>Avoid the first 2 trainers</b> and fight the next 2 trainers.</li>
+                        <li><b>Go up the stairs</b> and say yes.</li>
+                        <li><b>Beat the 3 trainers</b>.</li>
+                        <li><b>Go south west</b> and talk to steven 2 times.</li>
+                        <li><b>Say yes</b> and exit the building.</li>
+                        <li><b>Go in the house north west</b> of the pokecenter.</li>
+                        <li>You will get a <span class="highlight-item">HM-Dive</span>.</li>
+                        <li><b>Exit the house</b>.</li>
+                        <li><b>Buy a cheap Pokemon like Poliwag</b> to teach Dive to.</li>
+                        <li><b>Heal back up</b> and go south to route 127.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 127 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 127</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south until you get to route 128</b>, then continue until a roaming swimmer going in circles.</li>
+                        <li><b>Dive down</b> and find the cave entrance on the southern side.</li>
+                        <li><b>Enter the cave</b>.</li>
+                        <li><b>Dive out</b> of the water.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- SEAFLOOR CAVERN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">SEAFLOOR CAVERN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> and enter the door.</li>
+                        <li><b>Go north</b> and smash a rock.</li>
+                        <li><b>Push the boulder south</b> and go east.</li>
+                        <li><b>Push a boulder east</b> and avoid a trainer.</li>
+                        <li><b>Go in the door north west</b>.</li>
+                        <li><b>Smash a rock</b> and walk 5 steps west.</li>
+                        <li><b>Walk 1 step north</b> and push the boulder north 3 times.</li>
+                        <li><b>Smash a rock</b> and push the boulder east 2 times.</li>
+                        <li><b>Enter the door north east</b>.</li>
+                        <li><b>Go in the southern most current</b>.</li>
+                        <li><b>Go east in the current</b>.</li>
+                        <li><b>Go north in the current</b>.</li>
+                        <li><b>Go north in the current</b>.</li>
+                        <li><b>Surf 1 step west</b> and go north.</li>
+                        <li><b>Enter the door</b>.</li>
+                        <li><b>Go east</b> and push the southern most boulder east.</li>
+                        <li><b>Go 1 step east</b> and go 1 step north.</li>
+                        <li><b>Push the boulder north</b>.</li>
+                        <li><b>Go 1 step north</b> and go 1 step west.</li>
+                        <li><b>Push the boulder north 4 times</b>.</li>
+                        <li><b>Avoid the trainers</b> and enter the door north.</li>
+                        <li><b>Push the middle boulder north</b>.</li>
+                        <li><b>Go 1 step north</b>.</li>
+                        <li><b>Push the boulder west</b>.</li>
+                        <li><b>Go 1 step west</b>.</li>
+                        <li><b>Go 1 step north</b>.</li>
+                        <li><b>Push the boulder east</b>.</li>
+                        <li><b>Go 1 step east</b>.</li>
+                        <li><b>Push the boulder north 1 time</b>.</li>
+                        <li><b>Go 1 step north</b>.</li>
+                        <li><b>Push the boulder west</b>.</li>
+                        <li><b>Push the boulder east</b>.</li>
+                        <li><b>Go 1 step east</b>.</li>
+                        <li><b>Push the boulder north</b>.</li>
+                        <li><b>Go 2 steps west</b>.</li>
+                        <li><b>Push the boulder north</b>.</li>
+                        <li><b>Go 1 step north</b>.</li>
+                        <li><b>Push the boulder east</b>.</li>
+                        <li><b>Enter the door</b>.</li>
+                        <li><b>Go south</b> and follow the path.</li>
+                        <li><b>Stand in front</b> of the legendary pokemon.</li>
+                        <li><span class="highlight-boss">Fight the boss of team aqua</span> with nasty plot setup.</li>
+                        <li><b>Go north west to route 126</b> and continue west until you see a big mountain in the water.</li>
+                        <li><b>Go south of that mountain</b> and dive down.</li>
+                        <li><b>Enter the cave</b> and dive up.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- SOOTOPOLIS CITY -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">SOOTOPOLIS CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go northwest</b> and talk to Steven.</li>
+                        <li><b>Go north</b> and follow the path to talk to Wallace.</li>
+                        <li><b>Say Sky Pillar</b> and leave the cave.</li>
+                        <li><b>Go south to route 126</b> and dive back to where you came from.</li>
+                        <li><b>Surf back south east to route 128</b> where you came from.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ROUTE 128 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ROUTE 128</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go south all the way to route 130</b> then continue west to pacifidlog town while avoiding all the trainers.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- PACIFIDLOG TOWN -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">PACIFIDLOG TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Surf north all the way</b> and go east to route 131.</li>
+                        <li><b>Surf east until you see a male trainer swimming</b> and go north west.</li>
+                        <li><b>Enter the cave</b>.</li>
+                        <li><b>Go north</b> and enter the door.</li>
+                        <li><b>Go north</b> and enter the building.</li>
+                        <li><b>Go north</b> and go up the stairs.</li>
+                        <li><b>Go west</b> and go up the stairs.</li>
+                        <li><b>Go up the stairs north east</b>.</li>
+                        <li><b>Go down in the western most hole</b>.</li>
+                        <li><b>Go up the stairs</b>.</li>
+                        <li><b>Go up the stairs west</b>.</li>
+                        <li><b>Go up the stairs north east</b>.</li>
+                        <li><b>Go north all the way</b>.</li>
+                        <li><b>After the pokemon has left</b> you need to fly to sootopolis city.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- SOOTOPOLIS CITY GYM -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">SOOTOPOLIS CITY</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Talk to the boss of team aqua</b>.</li>
+                        <li><b>Also talk to the boss of team magma</b>.</li>
+                        <li><b>Talk to wallace</b> and you will get a <span class="highlight-item">HM-Waterfall</span>.</li>
+                        <li><b>Teach it to Poliwhirl</b>.</li>
+                        <li><b>Go in the gym</b>.</li>
+                        <li><b>Ice Floor 1:</b> Go north on the first ice square. Go 1 step west. Go 1 step north. Go 2 steps east. Go 1 step north. Go 1 step west.</li>
+                        <li><b>Ice Floor 2:</b> Go north on the first ice square. Go 3 steps west. Go 2 steps north. Go 2 steps east. Go 1 step south. Go 2 steps east. Go 1 step south. Go 2 steps east. Go 2 steps north. Go 3 steps west.</li>
+                        <li><b>Ice Floor 3:</b> Go north on the first ice square. Go 5 steps west. Go 3 steps north. Go 1 step east. Go 1 step south. Go 1 step east. Go 1 step south. Go 1 step east. Go 2 steps north. Go 1 step east. Go 1 step south. Go 1 step east. Go 1 step south. Go 1 step east. Go 1 step south. Go 1 step east. Go 2 steps north. Go 1 step east. Go 1 step south. Go 1 step east. Go 1 step south. Go 1 step east. Go 3 steps north. Go 5 steps west.</li>
+                        <li><b>Go north</b> and <span class="highlight-boss">beat the gym leader</span> with stealth rock setup.</li>
+                        <li><b>Exit the gym</b> and fly to mossdeep city.</li>
+                        <li><b>Surf south to route 127</b>.</li>
+                        <li><b>Surf south to route 128</b>.</li>
+                        <li><b>Surf east to ever grande city</b> while avoiding all the trainers.</li>
+                        <li><b>Follow the path</b> and go up the waterfall.</li>
+                        <li><b>Go heal at the pokecenter</b> and exit the house.</li>
+                        <li><b>Go north west</b> and enter the cave.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- VICTORY ROAD -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">VICTORY ROAD</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Go north</b> and go up the 2nd stairs.</li>
+                        <li><b>Go west and follow the path</b>, swap geodude to first place in team right after the bridge.</li>
+                        <li><span class="highlight-boss">Fight wally</span> with stealth rock and nasty plot setup.</li>
+                        <li><b>Go north</b> to fight the next trainer.</li>
+                        <li><b>Go down the stairs</b> and use Flash.</li>
+                        <li><b>Go southwest</b>, smash a rock, go south all the way and head west to go down the stairs.</li>
+                        <li><b>Go north</b> to fight a trainer.</li>
+                        <li><b>Surf northwest</b> and go up the waterfall.</li>
+                        <li><b>Go west all the way</b> and go down the waterfall.</li>
+                        <li><b>Go east</b> and go up the stairs.</li>
+                        <li><b>Go south</b> and smash a rock.</li>
+                        <li><b>Push the boulder south</b>.</li>
+                        <li><b>Smash the rock</b> and go north.</li>
+                        <li><b>Go up the stairs</b>.</li>
+                        <li><b>Follow the path</b> and fight a trainer.</li>
+                        <li><b>Go north</b> and avoid the 2 trainers by staying on the right side.</li>
+                        <li><b>Go north</b> and enter the door.</li>
+                        <li><b>Go north</b> and enter the building.</li>
+                        <li><b>Go north</b> and talk to the twins.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ELITE 4 -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">ELITE 4 GUIDE</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Sidney (Dark)</b> - <span class="highlight-item">Chople Berry</span> on Pory - Stealth rocks & nasty plot setup</li>
+                        <li><b>Phoebe (Ghost)</b> - Nasty plot setup</li>
+                        <li><b>Glacia (Ice)</b> - Stealth rocks & nasty plot setup (One Lvl 50 Glalie knows Explosion)</li>
+                        <li><b>Drake (Dragon)</b> - Nasty plot setup</li>
+                        <li><b>Wallace (Water)</b> - Nasty plot setup</li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- ENDING -->
+            <details class="guide-section" open>
+                <summary>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-white">LITTLEROOT TOWN</h2>
+                    <div class="flex items-center gap-4"><span class="checkmark">✓</span><span class="arrow-icon text-blue-500 text-2xl">▾</span></div>
+                </summary>
+                <div class="content-area">
+                    <ul class="step-list">
+                        <li><b>Enter the door</b> and you will get a <span class="highlight-item">s.s.ticket</span>.</li>
+                        <li><b>Say red</b> and exit the house.</li>
+                        <li><b>Exit the laboratory</b> and enter the house north east/west (depending on gender).</li>
+                        <li>(Talk to your mom 2 times to get a <span class="highlight-item">amuletcoin</span>).</li>
+                        <li><b>THE END!</b></li>
+                    </ul>
+                </div>
+            </details>
+
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-20 animate-fade">
-            
-            <!-- CARD 1: PORYGON-Z -->
-            <div class="build-card p-5">
-                <div class="flex flex-col items-center mb-4 text-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/474.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
-                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Porygon-Z</h3>
-                    <span class="text-[9px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Modest Nature</span>
-                </div>
-                <div class="section-divider">IVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-3">
-                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">15+</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value text-gray-600">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">15+</div></div>
-                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPATK</div><div class="stat-value text-green-400">31</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">15+</div></div>
-                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPD</div><div class="stat-value text-green-400">31</div></div>
-                </div>
-                <div class="section-divider">EVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-4">
-                    <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">6</div></div>
-                    <div class="stat-grid-box ev-box"><div class="stat-label">SPATK</div><div class="stat-value text-blue-300">252</div></div>
-                    <div class="stat-grid-box ev-box"><div class="stat-label">SPD</div><div class="stat-value text-blue-300">252</div></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="move-slot">Tri Attack</div>
-                    <div class="move-slot">Ice Beam</div>
-                    <div class="move-slot">Shadow Ball</div>
-                    <div class="move-slot">Nasty Plot</div>
-                    <div class="ability-slot">
-                        <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Adaptability</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 2: SUDOWOODO -->
-            <div class="build-card p-5">
-                <div class="flex flex-col items-center mb-4 text-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/185.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
-                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Sudowoodo</h3>
-                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
-                </div>
-                <div class="section-divider">IVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-3">
-                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
-                </div>
-                <div class="section-divider">EVs</div>
-                <div class="grid grid-cols-1 mb-4">
-                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="move-slot">Sucker punch</div>
-                    <div class="move-slot">Stealth Rock</div>
-                    <div class="move-slot">Dig</div>
-                    <div class="move-slot move-slot-empty">-</div>
-                    <div class="ability-slot">
-                        <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Sturdy</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 3: TROPIUS -->
-            <div class="build-card p-5">
-                <div class="flex flex-col items-center mb-4 text-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/357.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
-                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Tropius</h3>
-                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
-                </div>
-                <div class="section-divider">IVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-3">
-                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
-                </div>
-                <div class="section-divider">EVs</div>
-                <div class="grid grid-cols-1 mb-4">
-                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="move-slot">Cut</div>
-                    <div class="move-slot">Fly</div>
-                    <div class="move-slot">Rock Smash</div>
-                    <div class="move-slot">Strength</div>
-                    <div class="ability-slot">
-                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Ability: -</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 4: GOLDUCK -->
-            <div class="build-card p-5">
-                <div class="flex flex-col items-center mb-4 text-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/55.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
-                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Golduck</h3>
-                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
-                </div>
-                <div class="section-divider">IVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-3">
-                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
-                </div>
-                <div class="section-divider">EVs</div>
-                <div class="grid grid-cols-1 mb-4">
-                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="move-slot">Surf</div>
-                    <div class="move-slot">Waterfall</div>
-                    <div class="move-slot">Whirlpool</div>
-                    <div class="move-slot">Dive</div>
-                    <div class="ability-slot">
-                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Ability: -</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 5: RALTS -->
-            <div class="build-card p-5">
-                <div class="flex flex-col items-center mb-4 text-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/280.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
-                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Ralts</h3>
-                    <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest bg-slate-800/50 px-2 py-1 rounded mt-1">Nature: -</span>
-                </div>
-                <div class="section-divider">IVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-3">
-                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">-</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value">-</div></div>
-                </div>
-                <div class="section-divider">EVs</div>
-                <div class="grid grid-cols-1 mb-4">
-                    <div class="stat-grid-box ev-box"><div class="stat-value text-gray-500 text-[10px]">Don't matter</div></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="move-slot">Teleport</div>
-                    <div class="move-slot">Flash</div>
-                    <div class="move-slot move-slot-empty">-</div>
-                    <div class="move-slot move-slot-empty">-</div>
-                    <div class="ability-slot">
-                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Ability: -</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 6: GALLADE -->
-            <div class="build-card p-5">
-                <div class="flex flex-col items-center mb-4 text-center">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/475.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
-                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">Gallade</h3>
-                    <span class="text-[9px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Adamant Nature</span>
-                </div>
-                <div class="section-divider">IVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-3">
-                    <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value">15+</div></div>
-                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">ATK</div><div class="stat-value text-green-400">31</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value">15+</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value">0</div></div>
-                    <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value">15+</div></div>
-                    <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPD</div><div class="stat-value text-green-400">31</div></div>
-                </div>
-                <div class="section-divider">EVs</div>
-                <div class="grid grid-cols-3 gap-1 mb-4">
-                    <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">6</div></div>
-                    <div class="stat-grid-box ev-box"><div class="stat-label">ATK</div><div class="stat-value text-blue-300">252</div></div>
-                    <div class="stat-grid-box ev-box"><div class="stat-label">SPD</div><div class="stat-value text-blue-300">252</div></div>
-                </div>
-                <div class="flex flex-col">
-                    <div class="move-slot">Psycho Cut</div>
-                    <div class="move-slot">Sacred Sword</div>
-                    <div class="move-slot">Leafblade</div>
-                    <div class="move-slot">Nightslash</div>
-                    <div class="ability-slot">
-                        <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Sharpness</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 animate-fade items-stretch">
-            <div class="flex flex-col">
-                <a href="kanto-story.html" class="region-btn p-8 rounded-3xl text-center group">
-                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Kanto</h4>
-                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
-                </a>
-                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Unlocks roaming legendary Birds</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li></ul></div>
-            </div>
-            <div class="flex flex-col">
-                <a href="johto-story.html" class="region-btn p-8 rounded-3xl text-center group">
-                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Johto</h4>
-                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
-                </a>
-                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Unlocks roaming legendary Dogs</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li><li class="flex gap-2"><span class="text-blue-500">»</span> Best XP-Training Spot</li><li class="flex gap-2"><span class="text-blue-500">»</span> Red fight (After Dex completion)</li><li class="flex gap-2"><span class="text-blue-500">»</span> Ditto farm location</li></ul></div>
-            </div>
-            <div class="flex flex-col">
-                <a href="hoenn-story.html" class="region-btn p-8 rounded-3xl text-center group">
-                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Hoenn</h4>
-                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
-                </a>
-                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Best Ditto farm location</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li><li class="flex gap-2"><span class="text-blue-500">»</span> Beauty Contest</li><li class="flex gap-2"><span class="text-blue-500">»</span> Lots of EV training Spots</li></ul></div>
-            </div>
-            <div class="flex flex-col">
-                <a href="sinnoh-story.html" class="region-btn p-8 rounded-3xl text-center group">
-                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Sinnoh</h4>
-                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
-                </a>
-                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Best Trainer Rerun Route</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li></ul></div>
-            </div>
-            <div class="flex flex-col">
-                <a href="unova-story.html" class="region-btn p-8 rounded-3xl text-center group">
-                    <h4 class="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-blue-400 transition-colors">Unova</h4>
-                    <p class="text-[10px] text-gray-500 font-bold mt-1 uppercase tracking-widest">Guide</p>
-                </a>
-                <div class="info-box"><ul class="text-[11px] text-gray-400 space-y-2 font-semibold"><li class="flex gap-2"><span class="text-blue-500">»</span> Berry planting (Airfield & Shrine)</li><li class="flex gap-2"><span class="text-blue-500">»</span> Additional Gym Rerun</li><li class="flex gap-2"><span class="text-blue-500">»</span> Good Trainer Rerun Route</li><li class="flex gap-2"><span class="text-blue-500">»</span> Best speed EV + XP (Route 12)</li></ul></div>
-            </div>
-        </div>
-
     </main>
 
     <footer class="copyright-container">
         <div class="p-4">
             <div class="text-xs text-gray-500 text-center mb-4 uppercase tracking-tighter">© 2026 Team AïR</div>
             <div class="text-[10px] text-gray-400 leading-relaxed text-center max-w-4xl mx-auto opacity-80">
-                Copyright Team AiR. All rights reserved. Strategies documented by Team AïR for community use.
+                Copyright Team AiR. All rights reserved. This Hoenn speedrun guide is compiled for the community.
             </div>
         </div>
     </footer>
