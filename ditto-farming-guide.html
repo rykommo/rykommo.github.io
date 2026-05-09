@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ditto Farming Guide | Team AïR Tools</title>
+    <link rel="icon" type="image/png" href="air_ball.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        html { scrollbar-gutter: stable; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: #0f172a;
+            background-image: url('image_3.png'); background-size: cover; 
+            background-position: center; background-attachment: fixed; min-height: 100vh;
+        }
+        .nav-overlay-bg { 
+            background-color: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .btn-glow-active { box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); transition: all 0.3s ease; }
+        
+        .content-card { 
+            background-color: rgba(30, 41, 59, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px); 
+        }
+
+        .build-card { 
+            background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(59, 130, 246, 0.2); 
+            border-radius: 2rem; overflow: hidden; transition: transform 0.3s ease;
+            display: flex; flex-direction: column;
+            max-width: 350px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative; /* Added to support top-right level badge */
+        }
+        .build-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.5); }
+
+        .section-divider {
+            font-size: 0.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-divider::after { content: ''; flex: 1; height: 1px; background: rgba(59, 130, 246, 0.2); }
+
+        .stat-grid-box { 
+            background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 6px; 
+            border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center;
+            min-height: 45px; justify-content: center;
+        }
+        .ev-box { background: rgba(59, 130, 246, 0.05); }
+        
+        .stat-label { font-size: 0.55rem; color: #64748b; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { font-size: 0.85rem; font-weight: 900; color: #fff; }
+
+        .move-slot { 
+            background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; 
+            padding: 8px 12px; border-radius: 0 8px 8px 0; font-weight: 700; 
+            font-size: 0.75rem; margin-bottom: 6px; height: 36px; display: flex; align-items: center;
+        }
+        .move-slot-empty { background: rgba(255, 255, 255, 0.02); border-left: 3px solid rgba(255, 255, 255, 0.05); color: rgba(255,255,255,0.1); }
+
+        .ability-slot {
+            background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 8px; border-radius: 12px; text-align: center;
+            margin-top: 4px;
+        }
+
+        .info-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-top: 1.25rem;
+            min-height: 250px;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .copyright-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; max-height: 45px;
+            overflow: hidden; transition: max-height 0.6s;
+            background-color: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(100, 116, 139, 0.2); z-index: 100;
+        }
+        .copyright-container:hover { max-height: 400px; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <a href="index.html" class="flex items-center space-x-3 transition-all hover:opacity-80 group">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] group-hover:scale-105 transition-transform">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
+            </a>
+        </div>
+        <div class="col-span-2 flex justify-center">
+            <a href="guides.html" class="px-8 py-2 bg-blue-600 rounded-lg text-white font-black uppercase tracking-widest shadow-md transition btn-glow-active text-sm">
+                ← Back to Guides
+            </a>
+        </div>
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 p-8 lg:p-12 w-full pb-48">
+        
+        <div class="text-center mb-16 animate-fade">
+            <h1 class="text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]">Ditto Farming Guide</h1>
+        </div>
+
+        <div class="max-w-[80%] mx-auto mb-12">
+            <div class="content-card p-10 rounded-[2.5rem] animate-fade border-blue-500/20">
+                
+                <div class="bg-black/20 border border-white/5 rounded-3xl p-8 mb-10 text-center max-w-4xl mx-auto">
+                    <h2 class="text-xl font-black text-blue-400 uppercase tracking-widest mb-4">The Basics</h2>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Dittos have the most stable and a high base price since they can be bred with all mons. This makes them highly desirable, and any high IVs you find can be sold for additional profit. However, your main income comes from selling "shittos"—Dittos with bad IVs—as whole boxes of 60 to other players who use them for egging shinies.
+                        <br><br>
+                        Usually, the price for a box is around 270k-310k depending on the market, but it's especially lucrative during a shiny-war, where prices can reach up to 350k per box. This guide will showcase 3 ditto catching methods with different entry costs, strategies, and ease of use.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="flex flex-col border-r border-white/10 pr-4 text-center">
+                        <span class="text-lg font-black text-blue-400 uppercase tracking-widest mb-3 block">Requirements</span>
+                        <div class="text-sm text-gray-400 text-left space-y-2">
+                            <p>• Hoenn or Johto story completed.</p>
+                            <p>• A specialized catching mon from a strategy.</p>
+                            <p>• <b>Catching Streak:</b> This is catching multiple Pokémon of the same species (Ditto).</p>
+                            <p>• <b>Building Streak:</b> Usually built using Dusk Balls.</p>
+                            <p>• <b>Bonus:</b> Maxes at 15; gives a huge bonus to the ball most used (<b>Repeat Ball</b>).</p>
+                            <p>• <b>Warning:</b> Catching another species or inactivity for a few days breaks the streak.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col border-r border-white/10 px-4 text-center">
+                        <span class="text-xl font-black text-blue-400 uppercase tracking-widest mb-3 block">Location</span>
+                        <div class="text-sm text-gray-400 text-left space-y-4">
+                            <div>
+                                <p class="font-bold text-blue-300">Hoenn: Desert Underpass</p>
+                                <p class="text-xs">Route 114, accessable through the Fossil Maniac's House</p>
+                                <p class="mt-1"><b>Pros:</b> Higher encounter rate; Long tunnel means less inputs</p>
+                                <p><b>Cons:</b> "Bad" Phases (Whismur line)</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-blue-300">Johto: Route 47</p>
+                                <p class="text-xs">Patch of grass via first waterfall when coming from Cianwood and going down the ladder in the first cave</p>
+                                <p class="mt-1"><b>Pros:</b> Legendary bird chance; better phases</p>
+                                <p><b>Cons:</b> Lower encounter rate; more key inputs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col pl-4 px-4 text-center">
+                        <span class="text-lg font-black text-blue-400 uppercase tracking-widest mb-3 block">Additional Information</span>
+                        <div class="text-sm text-gray-400 text-left space-y-3">
+                            <p>IVs and EVs dont need the specific values shown here they are Guidelines for the Pokemon that I have tested and that worked for me.</p>
+                            <p>Ditto farming is best done on alt accounts or (if you can) another device alltogether so you can maximize account progression and money making/farming.</p>
+			    <p>Ditto always uses transform to copy all stats and moves from your active Pokemon (except HP) thats why the Pokemon for the strats have specific IV/EV's to put the Dittos as low as possible and to sleep for maximum Catch-Rate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-[80%] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade" style="animation-delay: 0.2s">
+            
+            <div class="flex flex-col">
+                <div class="build-card p-5">
+                    <div class="absolute top-5 right-7 text-[10px] font-black text-blue-400/40 uppercase tracking-widest">Lvl 80+</div>
+                    <div class="flex flex-col items-center mb-4 text-center">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/235.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                        <h3 class="text-xl font-black text-white uppercase tracking-tighter">Smeargle</h3>
+                        <span class="text-[8px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Adamant / Naughty / Lonely / Brave</span>
+                        <span class="text-[8px] text-yellow-400 font-black uppercase tracking-[0.1em] border border-yellow-500/20 px-2 py-1 rounded mt-1 bg-yellow-900/10">Held: Safety Goggles</span>
+                    </div>
+                    <div class="section-divider">IVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-3">
+                        <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value text-white">25+</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value text-white">15+</div></div>
+                    </div>
+                    <div class="section-divider">EVs</div>
+                    <div class="grid grid-cols-1 mb-4">
+                        <div class="stat-grid-box ev-box"><div class="stat-label">Attack</div><div class="stat-value text-blue-300">252</div></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="move-slot">False Swipe</div>
+                        <div class="move-slot">Spore</div>
+                        <div class="move-slot move-slot-empty">-</div>
+                        <div class="move-slot move-slot-empty">-</div>
+                        <div class="ability-slot">
+                            <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Technician</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="text-[13px] text-gray-300 leading-relaxed space-y-4">
+                        <p class="font-black text-blue-400 uppercase tracking-widest border-b border-blue-500/20 pb-2 text-center">Smeargle Strat</p>
+                        <p>Having False Swipe and Spore only Smeargle's makes this strat brain dead easy and only pp consumtion will be a problem as Smeargle cannot be put to sleep or die.</p>
+			<p>Consider filling up your party with these cheap Smeargle, so you have to go less often to the Pokecenter to fill up PP.</p>
+                        <p>The held item Safety Goggles disables the effect of spore type moves on smeargle meaning he cant be put to sleep and False Swipe as the only attack ensures smeargle cannot be killed by the wild ditto</p>
+                        
+                        <div class="bg-black/30 p-4 rounded-xl border border-white/5 space-y-1">
+                            <p class="font-bold text-blue-400 mb-1 uppercase text-[11px]">Turn order :</p>
+                            <p>1. <b>False swipe</b></p>
+                            <p>2. <b>Spore</b></p>
+                            <p>3. <b>catch</b></p>
+                            <p>4. <b>if it breaks out ball again if it wakes up spore again</b></p>
+                        </div>
+
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <p class="font-bold text-green-400 uppercase text-[11px] mb-1">Pros :</p>
+                                <ul class="text-[11px] space-y-2 text-gray-400">
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> Low entry cost (Safety goggles ~50k, smeargle as low as 5k)</li>
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> Low level requirement (level 80 smeargle can put ditto to 1hp)</li>
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> braindead easy (no breeding only putting moves on smeargle)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="font-bold text-red-400 uppercase text-[11px] mb-1">Cons :</p>
+                                <ul class="text-[11px] space-y-2 text-gray-400">
+                                    <li class="flex gap-2"><span class="text-red-500/50">•</span> Most basic version of the strat so no additional benefits other than catching</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="build-card p-5">
+                    <div class="absolute top-5 right-7 text-[10px] font-black text-blue-400/40 uppercase tracking-widest">Lvl 100</div>
+                    <div class="flex flex-col items-center mb-4 text-center">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/143.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                        <h3 class="text-xl font-black text-white uppercase tracking-tighter">Snorlax</h3>
+                        <span class="text-[9px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Jolly Nature</span>
+                        <span class="text-[8px] text-yellow-400 font-black uppercase tracking-[0.1em] border border-yellow-500/20 px-2 py-1 rounded mt-1 bg-yellow-900/10">Held: Leftovers</span>
+                    </div>
+                    <div class="section-divider">IVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-3">
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">HP</div><div class="stat-value text-green-400">31</div></div>
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">ATK</div><div class="stat-value text-green-400">31</div></div>
+                        <div class="stat-grid-box border-red-500/30"><div class="stat-label">DEF</div><div class="stat-value text-red-400">0</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPD</div><div class="stat-value text-white">15+</div></div>
+                    </div>
+                    <div class="section-divider">EVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-4">
+                        <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">252</div></div>
+                        <div class="stat-grid-box ev-box"><div class="stat-label">ATK</div><div class="stat-value">16</div></div>
+                        <div class="stat-grid-box ev-box"><div class="stat-label">DEF</div><div class="stat-value">55</div></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="move-slot">Payday</div>
+                        <div class="move-slot">Yawn</div>
+                        <div class="move-slot">Non-Damage Move</div>
+                        <div class="move-slot">Non-Damage Move</div>
+                        <div class="ability-slot">
+                            <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Immunity</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="text-[13px] text-gray-300 leading-relaxed space-y-4">
+                        <p class="font-black text-blue-400 uppercase tracking-widest border-b border-blue-500/20 pb-2 text-center">Snorlax strat</p>
+                        <p>This strat utilizes one of Johto's Ball-maker balls : Heavy Balls ( the heavier the target the higher the catchrate multiplier)</p>
+                        <p>With this ball we can achieve a close to 100% catchrate and rarely ditto breaks out.</p>
+                        <p>Using payday means the snorlax needs exact stats the ditto copies so it lives payday on almost every HP IV and attack roll (These are the stats for Desert Underpass farming):</p>
+                        
+                        <div class="bg-black/20 rounded-2xl p-4 border border-white/5 my-2">
+                            <p class="text-[11px] font-black text-blue-300 uppercase tracking-widest mb-2">Exact stats @lvl 100</p>
+                            <div class="flex gap-6">
+                                <p class="text-sm font-bold">ATK = <span class="text-white">260</span></p>
+                                <p class="text-sm font-bold">DEF = <span class="text-white">148</span></p>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mt-2">can play around with a bit higher atk and defense but these work for me</p>
+                        </div>
+
+                        <p>Leftovers provide infinite sustain to snorlax</p>
+                        
+                        <div class="bg-black/30 p-4 rounded-xl border border-white/5 space-y-1">
+                            <p class="font-bold text-blue-400 mb-1 uppercase text-[11px]">Execution :</p>
+                            <p>Turn 1: <b>Yawn</b></p>
+                            <p>Turn 2: <b>Payday</b></p>
+                            <p>Turn 3: <b>Catch</b></p>
+                        </div>
+
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <p class="font-bold text-green-400 uppercase text-[11px] mb-1">Pros:</p>
+                                <ul class="text-[11px] space-y-2 text-gray-400">
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> 100% catchrate means this strat is the fastest to catch dittos</li>
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> can utilze payday to offset ball cost</li>
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> Medium entry cost (leftovers usually &lt;25k, snorlax breed cost low)</li>
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> Can farm the balls to make catching even cheaper</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="font-bold text-red-400 uppercase text-[11px] mb-1">Cons:</p>
+                                <ul class="text-[11px] space-y-2 text-gray-400">
+                                    <li class="flex gap-2"><span class="text-red-500/50">•</span> Snorlax needs exact stats meaning annoying EV and level training</li>
+                                    <li class="flex gap-2"><span class="text-red-500/50">•</span> Heavy balls can be expensive at times and only buyable from GTL</li>
+                                    <li class="flex gap-2"><span class="text-red-500/50">•</span> Even with the cost offset heavy balls are ~1.8x expensive as repeat balls</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="build-card p-5">
+                    <div class="absolute top-5 right-7 text-[10px] font-black text-blue-400/40 uppercase tracking-widest">Lvl 100</div>
+                    <div class="flex flex-col items-center mb-4 text-center">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/196.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                        <h3 class="text-xl font-black text-white uppercase tracking-tighter">Espeon</h3>
+                        <span class="text-[9px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Adamant Nature</span>
+                        <span class="text-[8px] text-yellow-400 font-black uppercase tracking-[0.1em] border border-yellow-500/20 px-2 py-1 rounded mt-1 bg-yellow-900/10">Held: Muscle Band / Silk Scarf</span>
+                    </div>
+                    <div class="section-divider">IVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-3">
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">HP</div><div class="stat-value text-green-400">31</div></div>
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">ATK</div><div class="stat-value text-green-400">31</div></div>
+                        <div class="stat-grid-box border-red-500/30"><div class="stat-label">DEF</div><div class="stat-value text-red-400">0</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPATK</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPD</div><div class="stat-value text-gray-600">-</div></div>
+                    </div>
+                    <div class="section-divider">EVs</div>
+                    <div class="grid grid-cols-2 gap-1 mb-4">
+                        <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">252</div></div>
+                        <div class="stat-grid-box ev-box"><div class="stat-label">ATK</div><div class="stat-value">252</div></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="move-slot">Payday</div>
+                        <div class="move-slot">Yawn</div>
+                        <div class="move-slot">Psych Up</div>
+                        <div class="move-slot">Refresh</div>
+                        <div class="ability-slot">
+                            <span class="text-[9px] text-blue-300 font-black uppercase tracking-widest">Ability: Synchronize</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="text-[13px] text-gray-300 leading-relaxed space-y-6">
+                        <p class="font-black text-blue-400 uppercase tracking-widest border-b border-blue-500/20 pb-2 text-center">Espeon strat</p>
+                        <p>The goal of this strat is using Espeons unqiue combintion of moves, ability and stats to catch high value dittos more frequently.</p>
+                        <p>Using <b>Synchronize</b> with Adamant nature gives increased chance (~20%) to get Adamant Dittos which are far more valuable when they have one or more 31 IVs in ATK and/or SPD.</p>
+                        <p>Payday offsets ball cost aswell making this the cheapest way to catch dittos long term. Using payday means the Espeon needs exact stats the Ditto copies so it lives payday on almost every HP IV and attack roll.</p>
+                        
+                        <div class="bg-black/20 rounded-2xl p-4 border border-white/5 my-2">
+                            <p class="text-[11px] font-black text-blue-300 uppercase tracking-widest mb-2">Exact stats @lvl 100</p>
+                            <div class="flex gap-6">
+                                <p class="text-sm font-bold">ATK = <span class="text-white">251</span></p>
+                                <p class="text-sm font-bold">DEF = <span class="text-white">125</span></p>
+                            </div>
+                        </div>
+
+                        <p>Depending on the Region you will need a different held item: <b>Muscle Band</b> for Johto and <b>Silk Scarf</b> for Hoenn.</p>
+                        
+                        <div class="bg-black/30 p-4 rounded-xl border border-white/5 space-y-1">
+                            <p class="font-bold text-blue-400 mb-1 uppercase text-[11px]">Turn order:</p>
+                            <p>Turn 1: <b>Yawn</b></p>
+                            <p>Turn 2: <b>Payday</b></p>
+                            <p>Turn 3: <b>Catch</b></p>
+                            <p>Turn 4: If Ditto breaks out throw ball again if it wakes up yawn again</p>
+                            <p>Turn 5 (if yawned again): Use non damage move that is not yawn</p>
+                        </div>
+
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <p class="font-bold text-green-400 uppercase text-[11px] mb-1">Pros:</p>
+                                <ul class="text-[11px] space-y-2 text-gray-400">
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> High chance to catch very valueable Dittos</li>
+                                    <li class="flex gap-2"><span class="text-green-500/50">•</span> Payday offsets ball cost</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="font-bold text-red-400 uppercase text-[11px] mb-1">Cons:</p>
+                                <ul class="text-[11px] space-y-2 text-gray-400">
+                                    <li class="flex gap-2"><span class="text-red-500/50">•</span> High entry cost (3 Exact stats breed and different items)</li>
+                                    <li class="flex gap-2"><span class="text-red-500/50">•</span> Espeon can die from getting hit too often (might need multiple Espeons or use of revives)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="copyright-container">
+        <div class="p-4 text-center">
+            <div class="text-xs text-gray-500 mb-4 uppercase tracking-tighter">© 2026 Team AïR</div>
+            <div class="text-[10px] text-gray-400 leading-relaxed max-w-4xl mx-auto opacity-80">
+                Copyright Team AiR. All rights reserved. Strategies documented by Team AïR for community use.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
