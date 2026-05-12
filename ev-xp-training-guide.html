@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV & XP Training Guide | Team AïR Tools</title>
+    <link rel="icon" type="image/png" href="air_ball.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        html { scrollbar-gutter: stable; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; background-color: #0f172a;
+            background-image: url('image_3.png'); background-size: cover; 
+            background-position: center; background-attachment: fixed; min-height: 100vh;
+        }
+        .nav-overlay-bg { 
+            background-color: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .btn-glow-active { box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); transition: all 0.3s ease; }
+        
+        .content-card { 
+            background-color: rgba(30, 41, 59, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px); 
+        }
+
+        .build-card { 
+            background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(59, 130, 246, 0.2); 
+            border-radius: 2.5rem; overflow: hidden; transition: transform 0.3s ease;
+            display: flex; flex-direction: column;
+            width: 50%; height: auto;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .build-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.5); }
+
+        .category-header {
+            font-size: 1.25rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #3b82f6;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .category-header::after { content: ''; flex: 1; height: 1px; background: rgba(59, 130, 246, 0.2); }
+
+        .training-row {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .training-row:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(5px);
+        }
+
+        .section-divider {
+            font-size: 0.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-divider::after { content: ''; flex: 1; height: 1px; background: rgba(59, 130, 246, 0.2); }
+
+        .stat-grid-box { 
+            background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 6px; 
+            border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center;
+            min-height: 45px; justify-content: center;
+        }
+        .ev-box { background: rgba(59, 130, 246, 0.05); }
+        .stat-label { font-size: 0.55rem; color: #64748b; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { font-size: 0.85rem; font-weight: 900; color: #fff; }
+
+        .move-slot { 
+            background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; 
+            padding: 8px 12px; border-radius: 0 8px 8px 0; font-weight: 700; 
+            font-size: 0.75rem; margin-bottom: 6px; height: 36px; display: flex; align-items: center;
+        }
+
+        .ability-slot {
+            background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 8px; border-radius: 12px; text-align: center;
+            margin-top: 4px;
+        }
+
+        .stat-badge {
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+            min-width: 65px;
+            text-align: center;
+        }
+        .hp-bg { background: #ef4444; color: white; }
+        .atk-bg { background: #f97316; color: white; }
+        .def-bg { background: #eab308; color: white; }
+        .spa-bg { background: #3b82f6; color: white; }
+        .spd-bg { background: #22c55e; color: white; }
+        .spe-bg { background: #a855f7; color: white; }
+
+        .alt-box {
+            background: rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7);
+        }
+        .alt-list { color: #f8fafc; font-weight: 500; line-height: 1.6; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { opacity: 0; animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .copyright-container {
+            position: fixed; bottom: 0; left: 0; width: 100%; max-height: 45px;
+            overflow: hidden; transition: max-height 0.6s;
+            background-color: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(100, 116, 139, 0.2); z-index: 100;
+        }
+        .copyright-container:hover { max-height: 400px; }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col">
+
+    <header class="nav-overlay-bg h-20 grid grid-cols-4 items-center px-8 sticky top-0 z-50 shadow-lg">
+        <div class="col-span-1 flex justify-center border-r border-slate-600/30">
+            <a href="index.html" class="flex items-center space-x-3 transition-all hover:opacity-80 group">
+                <img src="logo.png" alt="Logo" class="h-10 w-auto filter drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] group-hover:scale-105 transition-transform">
+                <div class="h-6 w-px bg-slate-500/40"></div>
+                <span class="text-xl font-bold tracking-wider text-blue-300 uppercase">Team AïR Tools</span>
+            </a>
+        </div>
+        <div class="col-span-2 flex justify-center">
+            <a href="guides.html" class="px-8 py-2 bg-blue-600 rounded-lg text-white font-black uppercase tracking-widest shadow-md transition btn-glow-active text-sm">
+                ← Back to Guides
+            </a>
+        </div>
+        <div class="col-span-1"></div>
+    </header>
+
+    <main class="flex-1 p-8 lg:p-12 w-full pb-48">
+        
+        <div class="text-center mb-16 animate-fade">
+            <h1 class="text-6xl lg:text-7xl font-black text-white uppercase tracking-tighter drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]">EV & XP Training</h1>
+        </div>
+
+        <div class="max-w-[98%] mx-auto mb-12 flex flex-col lg:flex-row gap-6 animate-fade">
+            <div class="lg:w-2/3 content-card p-10 rounded-[2.5rem] border-blue-500/20">
+                <div class="bg-black/20 border border-white/5 rounded-3xl p-8 h-full">
+                    <h2 class="text-2xl font-black text-blue-400 uppercase tracking-widest mb-4 text-center">What are Effort Values (EVs)?</h2>
+                    <p class="text-sm text-gray-300 leading-relaxed max-w-3xl mx-auto">
+                        Effort Values (EVs) are bonus points that increase your Pokémon's stats beyond their natural growth. For every 4 EVs earned in a specific stat, that stat increases by 1 at Level 100.
+                        <br><br>
+                        In PokeMMO, you can earn a total of <b>510 EVs</b> per Pokémon, with a maximum cap of <b>252 EVs</b> in any single stat. Defeating Pokémon in hordes triggered by <b>Sweet Scent</b> is the fastest way to train.
+                        <br><br>
+                        Most of these Battles can and are advised to be cleared using a strong Zapdos as it has the hidden passive ability <b>Coalescence</b>. This gives Zapdos the ability to rarely (&lt;1%) find an <b>Elemental Orb</b> upon defeating a Pokemon in any battle. Elemental Orbs are used to increase the IV stats of the legendary Bird Trio, so they are always in high demand, making them a nice passive income (usually they go for between 16k-21k on the GTL).
+                        If you have to clear hordes where <b>electro moves wont work</b>, you can use a special attack set Rampardos using Surf and the Moldbreaker ability to attack through Sturdy users or ground types.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:w-1/3 content-card p-10 rounded-[2.5rem] border-blue-500/20 flex flex-col items-center justify-center text-center">
+                <div class="mb-6 p-4 bg-slate-900/60 rounded-3xl border border-white/5 shadow-inner">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/exp-share.png" alt="XP Share" class="w-20 h-20 filter drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                </div>
+                <h2 class="text-xl font-black text-blue-400 uppercase tracking-widest mb-4">XP Sharing</h2>
+                <div class="text-[13px] text-gray-300 leading-relaxed space-y-4">
+                    <p>
+                        The <b>XP Share</b> is a held item that grants the holder a portion of the experience points and 100% of the EV's earned in battle, even if they never enter the field.
+                    </p>
+                    <p>
+                        The <b>EXP Reamplifier</b> is a key item that shares experience and EV's across your <b>entire party</b>. This item is available in the RP shop for 1500RP and additionally to sharing XP across the Party also grants a 5% overall XP gain boost. If you have the money and want to build Raid Teams or Gym Rerun Teams, this item is very worth to buy and will save you alot of time.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-[98%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
+            
+            <div class="animate-fade" style="animation-delay: 0.1s">
+                <div class="build-card p-5">
+                    <div class="absolute top-5 right-7 text-[10px] font-black text-blue-400/40 uppercase tracking-widest">Lvl 100</div>
+                    <div class="flex flex-col items-center mb-4 text-center">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/145.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                        <h3 class="text-xl font-black text-white uppercase tracking-tighter">Zapdos</h3>
+                        <span class="text-[8px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Modest / Mild</span>
+                    </div>
+                    <div class="section-divider">IVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-3">
+                        <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPATK</div><div class="stat-value text-green-400">31</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPD</div><div class="stat-value text-green-400">31</div></div>
+                    </div>
+                    <div class="section-divider">EVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-4">
+                        <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">6</div></div>
+                        <div class="stat-grid-box ev-box"><div class="stat-label">SPATK</div><div class="stat-value text-blue-300">252</div></div>
+                        <div class="stat-grid-box ev-box"><div class="stat-label">SPD</div><div class="stat-value text-blue-300">252</div></div>
+                    </div>
+                    <div class="flex flex-col mb-4">
+                        <div class="move-slot">Discharge</div>
+                        <div class="ability-slot"><span class="text-[9px] text-blue-300 font-black uppercase">Ability: Pressure</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card p-8 rounded-[2.5rem] animate-fade" style="animation-delay: 0.2s">
+                <h2 class="category-header">Best EV Spots</h2>
+                <div class="space-y-3">
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/183.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-xs">5x Marill</p><p class="text-[9px] text-gray-400 uppercase">Hoenn Route 114</p></div>
+                        </div>
+                        <span class="stat-badge hp-bg">HP</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-xs">5x Rhydon</p><p class="text-[9px] text-gray-400 uppercase">Sinnoh Victory Rd</p></div>
+                        </div>
+                        <span class="stat-badge atk-bg">ATK</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/279.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-xs">5x Pelipper</p><p class="text-[9px] text-gray-400 uppercase">Unova Undella Bay</p></div>
+                        </div>
+                        <span class="stat-badge def-bg">DEF</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/55.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-xs">5x Golduck</p><p class="text-[9px] text-gray-400 uppercase">Kanto Two Island</p></div>
+                        </div>
+                        <span class="stat-badge spa-bg">SPATK</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-xs">5x Tentacruel</p><p class="text-[9px] text-gray-400 uppercase">Kanto Seven Isle</p></div>
+                        </div>
+                        <span class="stat-badge spd-bg">SPDEF</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/78.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-xs">5x Rapidash</p><p class="text-[9px] text-gray-400 uppercase">Unova Route 12</p></div>
+                        </div>
+                        <span class="stat-badge spe-bg">SPD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card p-8 rounded-[2.5rem] animate-fade" style="animation-delay: 0.3s">
+                <h2 class="category-header">Highest XP Spots</h2>
+                <div class="space-y-3">
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/85.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-[10px]">5x Dodrio / Donphan</p><p class="text-[8px] text-gray-400 uppercase">Mt. Silver Pokecenter</p></div>
+                        </div>
+                        <span class="text-green-400 font-black text-[10px]">~6k+ Exp</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/61.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-[10px]">5x Poliwhirl</p><p class="text-[8px] text-gray-400 uppercase">Mt. Silver (Surf)</p></div>
+                        </div>
+                        <span class="text-green-400 font-bold text-[10px]">~6k Exp</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-[10px]">5x Tentacruel</p><p class="text-[8px] text-gray-400 uppercase">Battle Frontier</p></div>
+                        </div>
+                        <span class="text-green-400 font-bold text-[10px]">~6k Exp</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/323.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-[10px]">5x Camerupt</p><p class="text-[8px] text-gray-400 uppercase">Stark Mountain</p></div>
+                        </div>
+                        <span class="text-green-400 font-bold text-[10px]">~6k Exp</span>
+                    </div>
+                    <div class="training-row">
+                        <div class="flex items-center gap-4">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/221.png" class="w-20 h-20">
+                            <div><p class="font-bold text-white text-[10px]">5x Piloswine</p><p class="text-[8px] text-gray-400 uppercase">Giant Chasm</p></div>
+                        </div>
+                        <span class="text-green-400 font-bold text-[10px]">~6k Exp</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="animate-fade" style="animation-delay: 0.4s">
+                <div class="build-card p-5">
+                    <div class="absolute top-5 right-7 text-[10px] font-black text-blue-400/40 uppercase tracking-widest">Lvl 100</div>
+                    <div class="flex flex-col items-center mb-4 text-center">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/409.png" class="w-32 h-32 filter drop-shadow-lg mb-2">
+                        <h3 class="text-xl font-black text-white uppercase tracking-tighter">Rampardos</h3>
+                        <span class="text-[8px] text-blue-400 font-bold uppercase tracking-widest bg-blue-900/30 px-2 py-1 rounded mt-1">Modest / Mild</span>
+                    </div>
+                    <div class="section-divider">IVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-3">
+                        <div class="stat-grid-box"><div class="stat-label">HP</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">ATK</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">DEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPATK</div><div class="stat-value text-green-400">31</div></div>
+                        <div class="stat-grid-box"><div class="stat-label">SPDEF</div><div class="stat-value text-gray-600">-</div></div>
+                        <div class="stat-grid-box border-green-500/30"><div class="stat-label">SPD</div><div class="stat-value text-green-400">31</div></div>
+                    </div>
+                    <div class="section-divider">EVs</div>
+                    <div class="grid grid-cols-3 gap-1 mb-4">
+                        <div class="stat-grid-box ev-box"><div class="stat-label">HP</div><div class="stat-value">6</div></div>
+                        <div class="stat-grid-box ev-box"><div class="stat-label">SPATK</div><div class="stat-value text-blue-300">252</div></div>
+                        <div class="stat-grid-box ev-box"><div class="stat-label">SPD</div><div class="stat-value text-blue-300">252</div></div>
+                    </div>
+                    <div class="flex flex-col mb-4">
+                        <div class="move-slot">Surf</div>
+                        <div class="ability-slot"><span class="text-[9px] text-blue-300 font-black uppercase">Ability: Moldbreaker</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-[95%] mx-auto mb-12 animate-fade" style="animation-delay: 0.5s">
+            <h2 class="category-header">Alternative 100% Encounter Spots</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="alt-box">
+                    <span class="stat-badge hp-bg mb-4 inline-block">HP</span>
+                    <ul class="alt-list text-[11px] space-y-2">
+                        <li>• 5x Dunsparce (5 EVs), Three Isle Port, Kanto</li>
+                        <li>• 5x Wobbuffet/Lickitung (10 EVs), Cerulean Cave Entrance, Kanto</li>
+                        <li>• 5x Lickitung (10 EVs), Route 44, Johto</li>
+                        <li>• 5x Loudred (10 EVs), Desert Underpass, Hoenn</li>
+                        <li>• 5x Hariyama (10 EVs), Victory Road, Hoenn</li>
+                        <li>• 5x Sealeo (10 EVs), Route 230, Sinnoh</li>
+                        <li>• 5x Stunfisk (10 EVs), Icirrus City Pond, Unova</li>
+                        <li>• 5x Amoonguss (10 EVs), Route 10, Unova</li>
+                    </ul>
+                </div>
+
+                <div class="alt-box">
+                    <span class="stat-badge atk-bg mb-4 inline-block">Attack</span>
+                    <ul class="alt-list text-[11px] space-y-2">
+                        <li>• 3x Paras (3 EVs), Mt. Moon B1F, Kanto</li>
+                        <li>• 5x Nidorino (10 EVs), Route 15, Kanto</li>
+                        <li>• 5x Primeape/Arbok (10 EVs), Route 23, Kanto</li>
+                        <li>• 5x Kingler/Machoke (10 EVs), Cliff Cave, Johto</li>
+                        <li>• 5x Ariados/Banette (10 EVs), Sky Pillar, Hoenn</li>
+                        <li>• 5x Bouffalant (10 EVs), Route 10, Unova</li>
+                        <li>• 5x Tranquill (10 EVs), Route 12, Unova</li>
+                        <li>• 5x Bibarel (10 EVs), Sendoff Spring, Sinnoh</li>
+                        <li>• 5x Machoke (10 EVs), Route 211, Sinnoh</li>
+                    </ul>
+                </div>
+
+                <div class="alt-box">
+                    <span class="stat-badge def-bg mb-4 inline-block">Defense</span>
+                    <ul class="alt-list text-[11px] space-y-2">
+                        <li>• 5x Sandslash/Marowak (10 EVs), Victory Road, Kanto</li>
+                        <li>• 5x Tangela (5 EVs), Route 21, Kanto</li>
+                        <li>• 5x Slowbro (10 EVs), Cape Brink, Kanto</li>
+                        <li>• 5x Metapod/Kakuna (10 EVs), Pattern Bush, Kanto</li>
+                        <li>• 5x Sandslash (10 EVs), Route 26, Johto</li>
+                        <li>• 5x Pelipper (10 EVs), Ever Grande City, Hoenn</li>
+                        <li>• 5x Pelipper (10 EVs), Route 222, Sinnoh</li>
+                    </ul>
+                </div>
+
+                <div class="alt-box">
+                    <span class="stat-badge spa-bg mb-4 inline-block">Sp Atk</span>
+                    <ul class="alt-list text-[11px] space-y-2">
+                        <li>• 5x Flaaffy/Girafarig (10 EVs), Route 43, Johto</li>
+                        <li>• 5x Gloom (10 EVs), Route 119, Hoenn</li>
+                        <li>• 5x Golduck (10 EVs), Resort Area, Sinnoh</li>
+                        <li>• 5x Duosion (10 EVs), Route 9, Unova</li>
+                        <li>• 5x Heatmor (10 EVs), Victory Road, Unova</li>
+                        <li>• 5x Litwick (5 EVs), Celestial Tower, Unova</li>
+                        <li>• 5x Golduck (10 EVs), Route 11, Unova</li>
+                    </ul>
+                </div>
+
+                <div class="alt-box">
+                    <span class="stat-badge spd-bg mb-4 inline-block">Sp Def</span>
+                    <ul class="alt-list text-[11px] space-y-2">
+                        <li>• 5x Dewgong (10 EVs), Icefall Cave, Kanto</li>
+                        <li>• 5x Tentacruel (10 EVs), Route 26, Johto</li>
+                        <li>• 5x Tentacruel (10 EVs), Battle Frontier, Hoenn</li>
+                        <li>• 5x Tentacruel (10 EVs), Victory Road, Sinnoh</li>
+                        <li>• 5x Gothorita (10 EVs), Route 9, Unova</li>
+                        <li>• Mantine (10 EVs), Undella Town, Unova</li>
+                    </ul>
+                </div>
+
+                <div class="alt-box">
+                    <span class="stat-badge spe-bg mb-4 inline-block">Speed</span>
+                    <ul class="alt-list text-[11px] space-y-2">
+                        <li>• 5x Raticate/Fearow (10 EVs), Route 17, Kanto</li>
+                        <li>• 5x Pigeotto (10 EVs), Five Isle Meadow, Kanto</li>
+                        <li>• 5x Poliwhirl (10 EVs), Blackthorn City, Johto</li>
+                        <li>• 5x Poliwhirl (10 EVs), Mt. Silver, Johto</li>
+                        <li>• 5x Linoone (10 EVs), Route 121, Hoenn</li>
+                        <li>• 5x Raticate (10 EVs), Dreamyard Basement, Unova</li>
+                        <li>• 5x Basculin/Buizel (5-10 EVs), Route 11, Unova</li>
+                        <li>• 5x Liepard (10 EVs), Dreamyard, Unova</li>
+                        <li>• 5x Floatzel/Electabuzz (10 EVs), Route 222, Sinnoh</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-2xl mx-auto mb-12">
+            <div class="content-card p-8 rounded-[2.5rem] animate-fade">
+                <h2 class="text-lg font-black text-blue-400 uppercase tracking-widest mb-6 text-center">EV Reduction Berries (-10 EVs)</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                    <div class="flex flex-col items-center bg-black/20 p-4 rounded-xl border border-white/5"><span class="text-red-400 font-bold">Pomeg (HP)</span></div>
+                    <div class="flex flex-col items-center bg-black/20 p-4 rounded-xl border border-white/5"><span class="text-orange-400 font-bold">Kelpsy (ATK)</span></div>
+                    <div class="flex flex-col items-center bg-black/20 p-4 rounded-xl border border-white/5"><span class="text-yellow-400 font-bold">Qualot (DEF)</span></div>
+                    <div class="flex flex-col items-center bg-black/20 p-4 rounded-xl border border-white/5"><span class="text-blue-400 font-bold">Hondew (SPATK)</span></div>
+                    <div class="flex flex-col items-center bg-black/20 p-4 rounded-xl border border-white/5"><span class="text-green-400 font-bold">Grepa (SPDEF)</span></div>
+                    <div class="flex flex-col items-center bg-black/20 p-4 rounded-xl border border-white/5"><span class="text-purple-400 font-bold">Tamato (SPD)</span></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="copyright-container">
+        <div class="p-4 text-center">
+            <div class="text-xs text-gray-500 mb-4 uppercase tracking-tighter">© 2026 Team AïR | Credits to Akshit for documenting Horde locations</div>
+            <div class="text-[10px] text-gray-400 leading-relaxed max-w-4xl mx-auto opacity-80">
+                Copyright Team AiR. All rights reserved. Strategies documented by Team AïR for community use.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
